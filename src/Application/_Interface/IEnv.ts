@@ -1,0 +1,15 @@
+/// <amd-module name="Application/_Interface/IEnv" />
+import Config from 'Application/_Config/Config';
+import { IConsole } from 'Application/_Interface/IConsole';
+import { ILocation } from 'Application/_Interface/ILocation';
+import { IStorageMap } from 'Application/_Interface/IStore';
+
+export interface IEnv {
+    console: IConsole
+    location: ILocation
+    storages: IStorageMap
+}
+
+export interface IEnvFactory {
+    create(config: Config): IEnv
+}

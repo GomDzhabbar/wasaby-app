@@ -1,0 +1,29 @@
+{
+   "name": "wasaby-app",
+   "version": "19.100.0",
+   "repository": {
+      "type": "git",
+      "url": "git@github.com:saby/wasaby-app.git"
+   },
+   "files": [
+      "src/*"
+   ],
+   "scripts": {
+      "build": "tsc -p ./src/",
+      "server": "node tests/server/build.js && node tests/server/run.js"
+   },
+   "demo": {
+      "port": 80
+   },
+   "devDependencies": {
+      "@types/node": "^10.12.15",
+      "express": "^4.16.4",
+      "requirejs": "^2.3.6",
+      "saby-ui": "git+https://git@github.com/saby/UI.git#rc-19.100"
+   },
+   "dependencies": {
+      "tslib": "^1.9.3",
+      "tslint": "^5.12.1",
+      "typescript": "^3.1.3"
+   }
+}
