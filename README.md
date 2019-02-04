@@ -3,7 +3,7 @@
 
 ## Запуск тестов
 ```bash
-    yarn install
-    yarn build
-    yarn test
+    npm install
+    npm build
+    npm test
 ```

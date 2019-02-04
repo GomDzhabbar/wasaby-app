@@ -20,7 +20,7 @@ require(['Application/_Config/Config'], (module) => {
          assert.strictEqual(boolValue, config.get('KeyBool'), 'Boolean value is broken');
       });
       it('getState()', function () {
-         assert.strictEqual({cfg}, config.getState(), 'State is broken');
+         assert.strictEqual(cfg, config.getState(), 'State is broken');
       });
    });
 });

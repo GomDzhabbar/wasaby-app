@@ -10,10 +10,11 @@ const fs = require('fs');
 const sourceFolder = path.join(__dirname, '../../src');
 const demoSrcFolder = path.join(__dirname, 'src');
 if (!fs.existsSync(sourceFolder)) {
-   return console.error("Folder is not exists!", sourceFolder);
+   return console.error('Folder is not exists!', sourceFolder);
 }
 
-if (demoSrcFolder) {
+if (fs.existsSync(demoSrcFolder)) {
+    console.warn(`Folder ${demoSrcFolder} is exists already. You should npm run test:clean if tests is not running correct.`)
     return;
 }
 

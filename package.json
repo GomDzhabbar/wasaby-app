@@ -1,6 +1,7 @@
 {
    "name": "wasaby-app",
    "version": "19.100.0",
+   "license": "GPL-3.0",
    "repository": {
       "type": "git",
       "url": "git@github.com:saby/wasaby-app.git"
@@ -12,7 +13,8 @@
       "build": "tsc -p ./src/",
       "pretest": "node tests/server/build.js",
       "server": "node tests/server/build.js && node tests/server/run.js",
-      "test": "mocha tests/mocha-start.js --test=all"
+      "test": "mocha tests/mocha-start.js --test=all",
+      "test:clean": "git clean -xfd ./tests/server"
    },
    "demo": {
       "port": 80
