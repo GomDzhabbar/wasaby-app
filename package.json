@@ -10,14 +10,18 @@
    ],
    "scripts": {
       "build": "tsc -p ./src/",
-      "server": "node tests/server/build.js && node tests/server/run.js"
+      "pretest": "node tests/server/build.js",
+      "server": "node tests/server/build.js && node tests/server/run.js",
+      "test": "mocha tests/mocha-start.js --test=all"
    },
    "demo": {
       "port": 80
    },
    "devDependencies": {
       "@types/node": "^10.12.15",
+      "chai": "^4.2.0",
       "express": "^4.16.4",
+      "mocha": "^5.2.0",
       "requirejs": "^2.3.6",
       "saby-ui": "git+https://git@github.com/saby/UI.git#rc-19.100"
    },
