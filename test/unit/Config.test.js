@@ -1,4 +1,4 @@
-require(['Application/_Config/Config'], (module) => {
+requirejs(['Application/_Config/Config'], (module) => {
    const Config = module.default;
    const stringValue = 'StringValue';
    const numValue = 42;
@@ -22,5 +22,6 @@ require(['Application/_Config/Config'], (module) => {
       it('getState()', function () {
          assert.strictEqual(cfg, config.getState(), 'State is broken');
       });
+      run();
    });
 });

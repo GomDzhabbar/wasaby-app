@@ -1,20 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const requirejs = require("requirejs");
-const pathMod = require("path");
-const fs = require("fs");
-const chai = require("chai");
+import chai = require('chai');
+import fs = require('fs');
+import pathMod = require('path');
+import requirejs = require('requirejs');
 const global = (0, eval)('this');
+
 global.requirejs = requirejs;
 global.define = requirejs.define;
+// @ts-ignore
 global.assert = chai.assert;
-const config = {
-    "baseUrl": "./tests/server/src",
+
+const config =  {
+    "baseUrl": "src",
     "paths": {},
     "waitSeconds": 0
 };
 requirejs.config(config);
-function getTestFromDir(path) {
+
+function getTestFromDir(path: string): string[] {
     let files = [];
     fs.readdirSync(path).forEach((fileName) => {
         const filePath = pathMod.join(path, fileName);
@@ -30,12 +32,20 @@ function getTestFromDir(path) {
     });
     return files;
 }
-function run() {
-    const singleTest = process.argv.pop().substring('--test='.length);
+
+function runTests() {
+    const singleTest = process.argv.length > 2 && process.argv[2].includes('--test=')
+        ? process.argv[2].substring('--test='.length)
+        : false;
+
+    if (singleTest === false) {
+        return;
+    }
+
     if (singleTest !== 'all') {
         return requirejs(singleTest);
     }
     const unitTestFolder = pathMod.join(__dirname, 'unit');
     getTestFromDir(unitTestFolder).forEach(requirejs);
 }
-run();
+runTests();

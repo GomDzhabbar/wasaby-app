@@ -1,4 +1,5 @@
 {
+   "extends": "../tsconfig.base.json",
    "compilerOptions": {
       "module": "amd",
       "moduleResolution": "classic",
@@ -6,6 +7,7 @@
       "lib": ["dom", "es5", "es2015"],
       "declaration": false,
       "noImplicitAny": false,
+      "noUnusedLocals": true,
       "stripInternal": true,
       "sourceMap": false,
       "alwaysStrict": true,

@@ -17,34 +17,40 @@
         <script src="/src/Application/Initializer.js"></script>
         <script>
             const serverState = {
-                "root": { "name": "server value!" }
+                "root": { "name": "server value!" },
+                "appConfig": {
+                    "Application/Env.LogLevel": 0,
+                    "someKey": true,
+                    "foo": 'foo',
+                    "baz": 88,
+                }
             };
             require([
                 "Application/Initializer",
                 "Application/Env",
                 "Application/Config",
                 "Application/_Env/Browser/StateReceiver"],
-            (AppInit, { EnvBrowser, getLogger, LogLevel }, Config, StateReceiver) => {
-                const cfg = {
-                    "Application/Env.LogLevel": LogLevel.info,
+            (AppInit, { EnvBrowser, logger, LogLevel }, Config, StateReceiver) => {
+                const defaultCfg = {
+                    "Application/Env.LogLevel": LogLevel.error,
                     someKey: false,
                     foo: 'bar',
                     baz: 5
                 };
-                let request = AppInit.default(cfg, EnvBrowser, new StateReceiver.default(serverState));
-                getLogger().info("Info", Config.get("someKey"));
-                getLogger().warning("Warning", Config.get("foo"));
-                getLogger().error("Error: ", Config.get("baz"));
+                let request = AppInit.default(defaultCfg, EnvBrowser, new StateReceiver.default(serverState));
+                logger.info("Info", Config.get("someKey"));
+                logger.warning("Warning", Config.get("foo"));
+                logger.error("Error: ", Config.get("baz"));
              });
         </script>
         <script>
-            require(["react", "react-dom", "Application/Initializer", "Application/Env"], function (React, ReactDOM, { registerComponent }, { getLogger }) {
+            require(["react", "react-dom", "Application/Initializer", "Application/Env"], function (React, ReactDOM, { registerComponent }, { logger }) {
                 class Welcome extends React.Component {
                     constructor(props) {
                         super(props);
                     }
                     render() {
-                        getLogger().info("React render Welcome, props:", this.props);
+                        logger.info("React render Welcome, props:", this.props);
                         return React.createElement("h1", null, "Hello, ", this.props.name);
                     }
                 }

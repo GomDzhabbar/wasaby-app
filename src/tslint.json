@@ -17,8 +17,14 @@
     "no-debugger": true,
     "no-duplicate-variable": true,
     "no-eval": true,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "case-insensitive",
+        "named-imports-order": "case-insensitive"
+      }
+    ],
     "use-isnan": true,
-    "no-use-before-declare": true,
     "whitespace": [
       true,
       "check-separator",

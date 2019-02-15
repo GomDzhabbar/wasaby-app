@@ -1,16 +1,19 @@
 /// <amd-module name='Application/_Env/Browser/Env' />
 import Config from 'Application/_Config/Config';
+import Cookie from 'Application/_Env/Browser/Cookie';
+import Store from 'Application/_Env/Browser/Store';
 import Console, { LogLevel } from 'Application/_Env/Console';
-import Storage from 'Application/_Env/Browser/Store';
-import ObjectStorage from 'Application/_Env/ObjectStorage';
-import { IStorageMap } from 'Application/_Interface/IStore';
-import { IEnv } from 'Application/_Interface/IEnv';
+import ObjectStore from 'Application/_Env/ObjectStore';
 import { IConsole } from 'Application/_Interface/IConsole';
+import { ICookie } from 'Application/_Interface/ICookie';
+import { IEnv } from 'Application/_Interface/IEnv';
 import { ILocation } from 'Application/_Interface/ILocation';
+import { IStorageMap, IStore } from 'Application/_Interface/IStore';
 
 export default class EnvBrowser implements IEnv {
-    location: ILocation
     console: IConsole
+    cookie: ICookie
+    location: ILocation
     storages: IStorageMap
 
     constructor(cfg: Config) {
@@ -20,18 +23,20 @@ export default class EnvBrowser implements IEnv {
             this.console.setLogLevel(<LogLevel> cfg.get("Application/Env.LogLevel"));
         }
 
-        let localStorage;
+        this.cookie = new Cookie();
+
+        let localStorage: IStore;
         try {
-            localStorage = new Storage(window.localStorage);
+            localStorage = new Store(window.localStorage);
         } catch (e) {
-            localStorage = new ObjectStorage();
+            localStorage = new ObjectStore();
             this.console.warning("Can't use localStorage", e);
         }
-        let sessionStorage;
+        let sessionStorage: IStore;
         try {
-            sessionStorage = new Storage(window.sessionStorage);
+            sessionStorage = new Store(window.sessionStorage);
         } catch (e) {
-            sessionStorage = new ObjectStorage();
+            sessionStorage = new ObjectStore();
             this.console.warning("Can't use sessionStorage", e);
         }
 

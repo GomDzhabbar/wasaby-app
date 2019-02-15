@@ -3,7 +3,7 @@
  * Интерфейс для логгера. Для того что бы избавиться от IoC('ILogger').
  * IoC вызывает у нас много непонятных проблем с цикличной зависимостью.
  * @interface
- * @name Core/Request/IConsole
+ * @name Application/Interface/IConsole
  */
 export interface IConsole {
     setLogLevel(logLevel: number): void;

@@ -1,22 +1,22 @@
 /// <amd-module name="Application/Initializer" />
 import Config from "Application/_Config/Config";
+import EnvBrowser from 'Application/_Env/Browser/Env';
 import StateReceiver from "Application/_Env/Browser/StateReceiver";
-import { IStateReceiver } from "Application/_Interface/IStateReceiver";
 import { IEnvFactory } from "Application/_Interface/IEnv";
+import { IStateReceiver } from "Application/_Interface/IStateReceiver";
 import Request from "Application/_Request/Request";
 import { HashMap } from "Application/_Type";
-import EnvBrowser from 'Application/_Env/Browser/Env';
 import { ISerializableState } from './_Interface/ISerializableState';
 
 export default function init(
-    configData?: HashMap<string>,
+    defaultConfigData?: HashMap<string>,
     envFactory: IEnvFactory = EnvBrowser,
     stateReceiver: IStateReceiver = new StateReceiver(),
 ): Request {
-    const config = new Config(configData);
+    const config = new Config(defaultConfigData);
+    stateReceiver.register(config.getUID(), config);
     const request = new Request(envFactory.create(config), config);
     request.setStateReceiver(stateReceiver);
-    request.getStateReceiver().register('appConfig', config);
     Request.setCurrent(request);
     return request;
 }

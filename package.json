@@ -10,10 +10,10 @@
       "src/*"
    ],
    "scripts": {
-      "build": "tsc -p ./src/",
-      "pretest": "node tests/server/build.js",
-      "server": "node tests/server/build.js && node tests/server/run.js",
-      "test": "mocha tests/mocha-start.js --test=all",
+      "build": "tsc -p ./src/tsconfig.json",
+      "pretest": "node test/server/build.js",
+      "server": "node test/server/build.js && node test/server/run.js",
+      "test": "mocha test/mocha-require.js --test=all",
       "test:clean": "git clean -xfd ./tests/server"
    },
    "demo": {
@@ -25,6 +25,7 @@
       "express": "^4.16.4",
       "mocha": "^5.2.0",
       "requirejs": "^2.3.6",
+      "saby-typescript": "git+https://github.com/saby/TypeScript.git#rc-19.200",
       "saby-ui": "git+https://git@github.com/saby/UI.git#rc-19.100"
    },
    "dependencies": {

@@ -1,19 +1,19 @@
 /// <amd-module name="Application/_Interface/IRequest" />
 import Config from 'Application/_Config/Config';
-import { IStore } from "Application/_Interface/IStore";
 import { IConsole } from "Application/_Interface/IConsole";
+import { ICookie } from 'Application/_Interface/ICookie';
 import { ILocation } from "Application/_Interface/ILocation";
 import { IStateReceiver } from "Application/_Interface/IStateReceiver";
+import { IStore } from "Application/_Interface/IStore";
 
 /**
  * Компонент, которые предоставляет в платформе доступ к синглтонам в раках запроса пользователя.
  */
 export interface IRequest {
+    cookie: ICookie;
+
     location: ILocation;
 
-    /**
-     * Доступ к логгеру
-     */
     console: IConsole;
 
     getConfig(): Config;

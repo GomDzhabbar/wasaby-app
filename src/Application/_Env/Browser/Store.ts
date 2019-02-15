@@ -1,6 +1,5 @@
 /// <amd-module name="Application/_Env/Browser/Store" />
-import { IStore, IWebStorage } from "Application/_Interface/IStore";
-const GLOBAL = (function () { return this || (0, eval)('this'); })();
+import { IStore } from "Application/_Interface/IStore";
 
 export class FakeWebStorage implements Storage {
     private __data = {};
