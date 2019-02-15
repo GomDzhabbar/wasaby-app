@@ -22,6 +22,6 @@ requirejs(['Application/_Config/Config'], (module) => {
       it('getState()', function () {
          assert.strictEqual(cfg, config.getState(), 'State is broken');
       });
-      run();
    });
+   run();
 });
