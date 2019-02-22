@@ -421,6 +421,7 @@ declare module "Application/Env" {
 declare module "Application/Interface" {
     export * from "Application/_Interface/IConsole";
     export * from "Application/_Interface/ICookie";
+    export * from "Application/_Interface/IEnv";
     export * from "Application/_Interface/ILocation";
     export * from "Application/_Interface/IStateReceiver";
     export * from "Application/_Interface/IStore";
