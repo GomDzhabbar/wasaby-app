@@ -3,4 +3,4 @@
 node_modules
 src/**/*.js
 !src/tslib.js
-tests/server/src
+test/server/src

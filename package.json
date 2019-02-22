@@ -9,9 +9,13 @@
    "files": [
       "src/*"
    ],
-   "types": "src/*",
+   "types": "types.d.ts",
+   "typesVersions": {
+      ">=3.1": { "*": ["./*"] }
+   },
    "scripts": {
-      "build": "tsc -p ./src/tsconfig.json",
+      "build": "tsc -p ./tsconfig.json || tsc -p ./tsconfig.declare.json",
+      "declare": "tsc -p ./tsconfig.declare.json",
       "pretest": "node test/server/build.js",
       "server": "node test/server/build.js && node test/server/run.js",
       "test": "mocha test/mocha-require.js --test=all",
