@@ -417,10 +417,18 @@ declare module "Application/Env" {
     export function getStateReceiver(): import("Application/Interface").IStateReceiver;
     export function getStorage(type: any): import("Application/Interface").IStore<string>;
 }
+/// <amd-module name="Application/_Interface/IConfig" />
+declare module "Application/_Interface/IConfig" {
+    import { Native } from "Application/Type";
+    export interface IConfig {
+        get(key: string): Native;
+    }
+}
 /// <amd-module name="Application/Interface" />
 declare module "Application/Interface" {
     export * from "Application/_Interface/IConsole";
     export * from "Application/_Interface/ICookie";
+    export * from "Application/_Interface/IConfig";
     export * from "Application/_Interface/IEnv";
     export * from "Application/_Interface/ILocation";
     export * from "Application/_Interface/IStateReceiver";
