@@ -9,6 +9,7 @@
    "files": [
       "src/*"
    ],
+   "types": "src/*",
    "scripts": {
       "build": "tsc -p ./src/tsconfig.json",
       "pretest": "node test/server/build.js",

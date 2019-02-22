@@ -1,4 +1,5 @@
-.*/
+.genie
+.vscode
 node_modules
 src/**/*.js
 !src/tslib.js
