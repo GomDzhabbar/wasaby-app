@@ -1,6 +1,6 @@
 /// <amd-module name="Application/_Env/Browser/StateReceiver" />
-import { ISerializableState, IStateReceiver, IConsole } from 'Application/Interface';
-import { HashMap, Native } from 'Application/_Type';
+import { HashMap, Native } from "Application/_Type";
+import { IConsole, ISerializableState, IStateReceiver } from "Application/Interface";
 
 type StateMap = HashMap<HashMap<Native>>;
 export type StateReceiverConfig = {

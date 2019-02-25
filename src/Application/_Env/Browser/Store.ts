@@ -1,6 +1,9 @@
 /// <amd-module name="Application/_Env/Browser/Store" />
 import { IStore } from "Application/_Interface/IStore";
 
+/**
+ * Эмуляция любого Storage браузера
+ */
 export class FakeWebStorage implements Storage {
     private __data = {};
 
@@ -14,7 +17,7 @@ export class FakeWebStorage implements Storage {
     }
 
     setItem(key: string, value: string) {
-        this.__data[key] = key;
+        this.__data[key] = value;
         return true;
     }
 
@@ -44,6 +47,7 @@ export default class Store implements IStore {
     constructor(storageType: Storage) {
         this.__storage = storageType;
     }
+
     get(key: string) {
         try {
             return this.__storage.getItem(key);
@@ -51,6 +55,7 @@ export default class Store implements IStore {
             // ignore
         }
     }
+
     set(key: string, data: string) {
         try {
             this.__storage.setItem(key, data);
@@ -60,6 +65,7 @@ export default class Store implements IStore {
             return false;
         }
     }
+
     remove(key: string) {
         try {
             this.__storage.removeItem(key);
@@ -67,6 +73,7 @@ export default class Store implements IStore {
             // ignore
         }
     }
+
     getKeys() {
         try {
             return Object.keys(this.__storage);
@@ -74,6 +81,7 @@ export default class Store implements IStore {
             return []
         }
     }
+
     toObject() {
         try {
             return {

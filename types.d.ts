@@ -102,6 +102,9 @@ declare module "Application/_Interface/IStore" {
 /// <amd-module name="Application/_Env/Browser/Store" />
 declare module "Application/_Env/Browser/Store" {
     import { IStore } from "Application/_Interface/IStore";
+    /**
+     * Эмуляция любого Storage браузера
+     */
     export class FakeWebStorage implements Storage {
         private __data;
         readonly length: number;
@@ -438,8 +441,8 @@ declare module "Application/Interface" {
 }
 /// <amd-module name="Application/_Env/Browser/StateReceiver" />
 declare module "Application/_Env/Browser/StateReceiver" {
-    import { ISerializableState, IStateReceiver, IConsole } from "Application/Interface";
     import { HashMap, Native } from "Application/Type";
+    import { IConsole, ISerializableState, IStateReceiver } from "Application/Interface";
     type StateMap = HashMap<HashMap<Native>>;
     export type StateReceiverConfig = {
         states?: StateMap;
@@ -489,6 +492,10 @@ declare module "Application/_Env/Browser/StateReceiver" {
 }
 /// <amd-module name="Application/Initializer" />
 declare module "Application/Initializer" {
+    export { default as StateReceiver } from "Application/_Env/Browser/StateReceiver";
+    export { default as Cookie } from "Application/_Env/Browser/Cookie";
+    export { default as Store } from "Application/_Env/Browser/Store";
+    export { default as ObjectStore } from "Application/_Env/ObjectStore";
     import { IEnvFactory } from "Application/_Interface/IEnv";
     import { IStateReceiver } from "Application/_Interface/IStateReceiver";
     import Request from "Application/_Request/Request";

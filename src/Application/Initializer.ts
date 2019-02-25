@@ -2,6 +2,10 @@
 import Config from "Application/_Config/Config";
 import EnvBrowser from 'Application/_Env/Browser/Env';
 import StateReceiver from "Application/_Env/Browser/StateReceiver";
+export { default as StateReceiver } from "Application/_Env/Browser/StateReceiver";
+export { default as Cookie } from "Application/_Env/Browser/Cookie";
+export { default as Store } from "Application/_Env/Browser/Store";
+export { default as ObjectStore } from "Application/_Env/ObjectStore";
 import { IEnvFactory } from "Application/_Interface/IEnv";
 import { IStateReceiver } from "Application/_Interface/IStateReceiver";
 import Request from "Application/_Request/Request";

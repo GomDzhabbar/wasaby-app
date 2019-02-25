@@ -1,5 +1,5 @@
 /// <amd-module name="Application/_Interface/IStateReceiver" />
-import { HashMap, Native } from 'Application/_Type';
+import { HashMap, Native } from "Application/_Type";
 
 /**
  * Интерфейс, который нужно поддержать компонентам, что бы их можно было сериализовать
