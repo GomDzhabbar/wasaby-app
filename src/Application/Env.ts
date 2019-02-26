@@ -1,23 +1,29 @@
 /// <amd-module name="Application/Env" />
-export { default as EnvBrowser } from "Application/_Env/Browser/Env";
-export { LogLevel } from "Application/_Env/Console";
-import { IConsole } from "Application/_Interface/IConsole";
-import Request from "Application/_Request/Request";
+export { default as EnvBrowser } from 'Application/_Env/Browser/Env';
+export { LogLevel } from 'Application/_Env/Console';
+import { IConsole } from 'Application/_Interface/IConsole';
+import { ICookie } from 'Application/_Interface/ICookie';
+import { ILocation } from 'Application/_Interface/ILocation';
+import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
+import { IStore } from 'Application/_Interface/IStore';
+import Request from 'Application/_Request/Request';
 
-export function getLocation() {
+export function getLocation(): ILocation {
     return Request.getCurrent().location;
 }
 
-export function getCookie(key) {
-    return Request.getCurrent().cookie.get(key);
-}
+export const cookie: ICookie = {
+    get(key) {
+        return Request.getCurrent().cookie.get(key);
+    },
 
-export function setCookie(key, value) {
-    return Request.getCurrent().cookie.set(key, value);
-}
+    set(key, value, options?) {
+        return Request.getCurrent().cookie.set(key, value, options);
+    },
 
-export function removeCookie(key) {
-    return Request.getCurrent().cookie.remove(key);
+    remove(key) {
+        return Request.getCurrent().cookie.remove(key);
+    }
 }
 
 export const logger: IConsole = {
@@ -50,10 +56,10 @@ export const logger: IConsole = {
     }
 };
 
-export function getStateReceiver() {
+export function getStateReceiver(): IStateReceiver {
     return Request.getCurrent().getStateReceiver();
 }
 
-export function getStorage(type) {
-    return Request.getCurrent().getStorage(type);
+export function getStore(type: string): IStore {
+    return Request.getCurrent().getStore(type);
 }

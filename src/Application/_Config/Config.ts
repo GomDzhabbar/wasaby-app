@@ -4,7 +4,6 @@ import { HashMap, Native } from 'Application/_Type';
 
 export default class Config implements ISerializableState {
     constructor(private data: HashMap<Native> = {}, private __uid: string = 'appConfig') {
-        console.log('foooo');
     }
 
     get(key: string): Native {

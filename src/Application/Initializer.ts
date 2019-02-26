@@ -22,6 +22,7 @@ export default function init(
     const request = new Request(envFactory.create(config), config);
     request.setStateReceiver(stateReceiver);
     Request.setCurrent(request);
+
     return request;
 }
 

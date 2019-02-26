@@ -7,7 +7,7 @@ import { IEnv } from 'Application/_Interface/IEnv';
 import { ILocation } from 'Application/_Interface/ILocation';
 import { IRequest } from 'Application/_Interface/IRequest';
 import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
-import { IStorageMap } from 'Application/_Interface/IStore';
+import { IStoreMap } from 'Application/_Interface/IStore';
 import { IStore } from 'Application/_Interface/IStore';
 
 let globalEnv: IRequest = null;
@@ -52,7 +52,7 @@ export default class AppRequest implements IRequest {
      */
     private __stateReceiver: IStateReceiver;
 
-    private readonly __storages: IStorageMap;
+    private readonly __storages: IStoreMap;
 
     constructor(env: IEnv, config: Config) {
         let {
@@ -73,7 +73,7 @@ export default class AppRequest implements IRequest {
      * Получение хранилища для сохранений данных в рамках запроса.
      * @param {string} key Тип хранилища
      */
-    getStorage(key: string): IStore {
+    getStore(key: string): IStore {
         if (!this.__storages[key]) {
             this.__storages[key] = new Store(new FakeWebStorage());
         }
@@ -83,7 +83,7 @@ export default class AppRequest implements IRequest {
     /**
      * FIXME нужны ли нам Storage?
      */
-    addStorage(key: string, storage: IStore) {
+    addStore(key: string, storage: IStore) {
         if (this.__storages[key]) {
             throw new Error(`attempt to overwrite used storage "${key}"`);
         }

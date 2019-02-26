@@ -90,12 +90,7 @@ declare module "Application/_Interface/IStore" {
             [key: string]: string;
         };
     }
-    export interface IWebStorage<T = string> {
-        getItem(key: string): T | null;
-        setItem(key: string, value: T): boolean;
-        removeItem(key: string): void;
-    }
-    export interface IStorageMap {
+    export interface IStoreMap {
         [propName: string]: IStore;
     }
 }
@@ -158,8 +153,24 @@ declare module "Application/_Interface/ICookie" {
         secure: string;
     }
     export interface ICookie {
+        /**
+         * Получение значение из cookie
+         * @param key {string}
+         */
         get(key: string): string;
+        /**
+         * Устанавливаем cookie
+         * @param key {string}
+         * @param value {string}
+         * @param options {Partial<ICookieOptions>}
+         * @throws {Error} ошибка установки значения
+         */
         set(key: string, value: string, options?: Partial<ICookieOptions>): boolean;
+        /**
+         * Удаляем cookie
+         * @param key {string}
+         * @throws {Error} ошибка очистки значения
+         */
         remove(key: string): void;
     }
 }
@@ -188,12 +199,12 @@ declare module "Application/_Interface/IEnv" {
     import { IConsole } from "Application/_Interface/IConsole";
     import { ICookie } from "Application/_Interface/ICookie";
     import { ILocation } from "Application/_Interface/ILocation";
-    import { IStorageMap } from "Application/_Interface/IStore";
+    import { IStoreMap } from "Application/_Interface/IStore";
     export interface IEnv {
         console: IConsole;
         cookie: ICookie;
         location: ILocation;
-        storages: IStorageMap;
+        storages: IStoreMap;
     }
     export interface IEnvFactory {
         create(config: Config): IEnv;
@@ -256,7 +267,7 @@ declare module "Application/_Interface/IRequest" {
          * Получение хранилища для сохранений данных в рамках запроса.
          * @param key Тип хранилища.
          */
-        getStorage(key: any): IStore;
+        getStore(key: string): IStore;
     }
 }
 /// <amd-module name="Application/_Request/Request" />
@@ -310,11 +321,11 @@ declare module "Application/_Request/Request" {
          * Получение хранилища для сохранений данных в рамках запроса.
          * @param {string} key Тип хранилища
          */
-        getStorage(key: string): IStore;
+        getStore(key: string): IStore;
         /**
          * FIXME нужны ли нам Storage?
          */
-        addStorage(key: string, storage: IStore): void;
+        addStore(key: string, storage: IStore): void;
         setStateReceiver(stateReceiver: IStateReceiver): void;
         getStateReceiver(): IStateReceiver;
         getConfig(): Config;
@@ -397,12 +408,12 @@ declare module "Application/_Env/Browser/Env" {
     import { ICookie } from "Application/_Interface/ICookie";
     import { IEnv } from "Application/_Interface/IEnv";
     import { ILocation } from "Application/_Interface/ILocation";
-    import { IStorageMap } from "Application/_Interface/IStore";
+    import { IStoreMap } from "Application/_Interface/IStore";
     export default class EnvBrowser implements IEnv {
         console: IConsole;
         cookie: ICookie;
         location: ILocation;
-        storages: IStorageMap;
+        storages: IStoreMap;
         constructor(cfg: Config);
         static create(cfg: Config): EnvBrowser;
     }
@@ -412,13 +423,15 @@ declare module "Application/Env" {
     export { default as EnvBrowser } from "Application/_Env/Browser/Env";
     export { LogLevel } from "Application/_Env/Console";
     import { IConsole } from "Application/_Interface/IConsole";
-    export function getLocation(): import("Application/Interface").ILocation;
-    export function getCookie(key: any): string;
-    export function setCookie(key: any, value: any): boolean;
-    export function removeCookie(key: any): void;
+    import { ICookie } from "Application/_Interface/ICookie";
+    import { ILocation } from "Application/_Interface/ILocation";
+    import { IStateReceiver } from "Application/_Interface/IStateReceiver";
+    import { IStore } from "Application/_Interface/IStore";
+    export function getLocation(): ILocation;
+    export const cookie: ICookie;
     export const logger: IConsole;
-    export function getStateReceiver(): import("Application/Interface").IStateReceiver;
-    export function getStorage(type: any): import("Application/Interface").IStore<string>;
+    export function getStateReceiver(): IStateReceiver;
+    export function getStore(type: string): IStore;
 }
 /// <amd-module name="Application/_Interface/IConfig" />
 declare module "Application/_Interface/IConfig" {

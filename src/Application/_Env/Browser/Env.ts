@@ -8,13 +8,13 @@ import { IConsole } from 'Application/_Interface/IConsole';
 import { ICookie } from 'Application/_Interface/ICookie';
 import { IEnv } from 'Application/_Interface/IEnv';
 import { ILocation } from 'Application/_Interface/ILocation';
-import { IStorageMap, IStore } from 'Application/_Interface/IStore';
+import { IStore, IStoreMap } from 'Application/_Interface/IStore';
 
 export default class EnvBrowser implements IEnv {
     console: IConsole
     cookie: ICookie
     location: ILocation
-    storages: IStorageMap
+    storages: IStoreMap
 
     constructor(cfg: Config) {
         this.location = window.location;

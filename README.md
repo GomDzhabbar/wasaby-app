@@ -7,3 +7,9 @@
     npm build
     npm test
 ```
+
+## Contrebution
+Необходимо перед выкладкой скомпилировать файл типов для TypeScript
+```bash
+    npm run declare
+```

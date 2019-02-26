@@ -29,5 +29,5 @@ export interface IRequest {
      * Получение хранилища для сохранений данных в рамках запроса.
      * @param key Тип хранилища.
      */
-    getStorage(key: any): IStore;
+    getStore(key: string): IStore;
 }

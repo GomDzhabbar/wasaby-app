@@ -7,9 +7,25 @@ export interface ICookieOptions {
 }
 
 export interface ICookie {
+    /**
+     * Получение значение из cookie
+     * @param key {string}
+     */
     get(key: string): string
 
+    /**
+     * Устанавливаем cookie
+     * @param key {string}
+     * @param value {string}
+     * @param options {Partial<ICookieOptions>}
+     * @throws {Error} ошибка установки значения
+     */
     set(key: string, value: string, options ?: Partial<ICookieOptions>): boolean
 
+    /**
+     * Удаляем cookie
+     * @param key {string}
+     * @throws {Error} ошибка очистки значения
+     */
     remove(key: string): void;
 }

@@ -13,12 +13,6 @@ export interface IStore < T = string >  {
     toObject(): {[key: string]: string};
 }
 
-export interface IWebStorage<T = string> {
-    getItem(key: string): T | null;
-    setItem(key: string, value: T): boolean;
-    removeItem(key: string): void;
-}
-
-export interface IStorageMap {
+export interface IStoreMap {
     [propName: string]: IStore;
 }

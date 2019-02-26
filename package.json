@@ -19,10 +19,10 @@
       "pretest": "node test/server/build.js",
       "server": "node test/server/build.js && node test/server/run.js",
       "test": "mocha test/mocha-require.js --test=all",
-      "test:clean": "git clean -xfd ./tests/server"
+      "test:clean": "git clean -xfd ./test/server"
    },
    "demo": {
-      "port": 80
+      "port": 8000
    },
    "devDependencies": {
       "@types/node": "^10.12.15",
