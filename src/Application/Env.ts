@@ -23,6 +23,14 @@ export const cookie: ICookie = {
 
     remove(key) {
         return Request.getCurrent().cookie.remove(key);
+    },
+
+    getKeys() {
+        return Request.getCurrent().cookie.getKeys();
+    },
+
+    toObject() {
+        return Request.getCurrent().cookie.toObject();
     }
 }
 
@@ -45,9 +53,9 @@ export const logger: IConsole = {
         return console.info.apply(console, args);
     },
 
-    warning(...args) {
+    warn(...args) {
         const console = Request.getCurrent().console;
-        return console.warning.apply(console, args);
+        return console.warn.apply(console, args);
     },
 
     error(...args) {

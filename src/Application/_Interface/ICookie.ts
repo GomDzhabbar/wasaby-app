@@ -1,4 +1,6 @@
 /// <amd-module name="Application/_Interface/ICookie" />
+import { IStore } from 'Application/_Interface/IStore';
+
 export interface ICookieOptions {
     domain: string
     expires: number | Date
@@ -6,7 +8,7 @@ export interface ICookieOptions {
     secure: string
 }
 
-export interface ICookie {
+export interface ICookie extends IStore {
     /**
      * Получение значение из cookie
      * @param key {string}

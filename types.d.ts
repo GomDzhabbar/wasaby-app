@@ -140,19 +140,20 @@ declare module "Application/_Interface/IConsole" {
         getLogLevel(): number;
         info(...args: any): void;
         log(...args: any): void;
-        warning(...args: any): void;
+        warn(...args: any): void;
         error(...args: any): void;
     }
 }
 /// <amd-module name="Application/_Interface/ICookie" />
 declare module "Application/_Interface/ICookie" {
+    import { IStore } from "Application/_Interface/IStore";
     export interface ICookieOptions {
         domain: string;
         expires: number | Date;
         path: string;
         secure: string;
     }
-    export interface ICookie {
+    export interface ICookie extends IStore {
         /**
          * Получение значение из cookie
          * @param key {string}
@@ -385,7 +386,7 @@ declare module "Application/_Env/Console" {
         getLogLevel(): LogLevel;
         info(): void;
         log(): void;
-        warning(): any;
+        warn(): any;
         error(): void;
     }
 }

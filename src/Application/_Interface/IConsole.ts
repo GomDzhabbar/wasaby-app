@@ -10,6 +10,6 @@ export interface IConsole {
     getLogLevel(): number;
     info(...args: any): void;
     log(...args: any): void;
-    warning(...args: any): void;
+    warn(...args: any): void;
     error(...args: any): void;
 }

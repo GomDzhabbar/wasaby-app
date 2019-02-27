@@ -43,7 +43,7 @@ export default class Console implements IConsole {
         }
     };
 
-    warning() {
+    warn() {
         if (!this.isShow(LogLevel.warning)) {
             return;
         }

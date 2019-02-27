@@ -30,14 +30,14 @@ export default class EnvBrowser implements IEnv {
             localStorage = new Store(window.localStorage);
         } catch (e) {
             localStorage = new ObjectStore();
-            this.console.warning("Can't use localStorage", e);
+            this.console.warn("Can't use localStorage", e);
         }
         let sessionStorage: IStore;
         try {
             sessionStorage = new Store(window.sessionStorage);
         } catch (e) {
             sessionStorage = new ObjectStore();
-            this.console.warning("Can't use sessionStorage", e);
+            this.console.warn("Can't use sessionStorage", e);
         }
 
         this.storages = {
