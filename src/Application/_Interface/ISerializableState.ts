@@ -1,4 +1,4 @@
-/// <amd-module name="Application/_Interface/IStateReceiver" />
+/// <amd-module name="Application/_Interface/ISerializableState" />
 import { HashMap, Native } from "Application/_Type";
 
 /**
