@@ -5,8 +5,8 @@ declare module "Application/Type" {
         [key: string]: T;
     };
 }
-/// <amd-module name="Application/_Interface/IStateReceiver" />
-declare module "Application/_Interface/IStateReceiver" {
+/// <amd-module name="Application/_Interface/ISerializableState" />
+declare module "Application/_Interface/ISerializableState" {
     import { HashMap, Native } from "Application/Type";
     /**
      * Интерфейс, который нужно поддержать компонентам, что бы их можно было сериализовать
@@ -61,7 +61,7 @@ declare module "Application/_Interface/IStateReceiver" {
 }
 /// <amd-module name="Application/_Config/Config" />
 declare module "Application/_Config/Config" {
-    import { ISerializableState } from "Application/_Interface/IStateReceiver";
+    import { ISerializableState } from "Application/_Interface/ISerializableState";
     import { HashMap, Native } from "Application/Type";
     export default class Config implements ISerializableState {
         private data;
@@ -188,7 +188,6 @@ declare module "Application/_Interface/ILocation" {
         host: string;
         hostname: string;
         port: string;
-        hash: string;
         href: string;
         pathname: string;
         search: string;
@@ -213,7 +212,7 @@ declare module "Application/_Interface/IEnv" {
 }
 /// <amd-module name="Application/_Interface/IStateReceiver" />
 declare module "Application/_Interface/IStateReceiver" {
-    import { ISerializableState } from "Application/_Interface/IStateReceiver";
+    import { ISerializableState } from "Application/_Interface/ISerializableState";
     /**
      * Инетрфейс компонента для восстановления состояний компонентов.
      * Необходим для получения данных состояний компонентов созданных на сервер.
@@ -448,7 +447,7 @@ declare module "Application/Interface" {
     export * from "Application/_Interface/IConfig";
     export * from "Application/_Interface/IEnv";
     export * from "Application/_Interface/ILocation";
-    export * from "Application/_Interface/IStateReceiver";
+    export * from "Application/_Interface/ISerializableState";
     export * from "Application/_Interface/IStore";
     export * from "Application/_Interface/IStateReceiver";
     export * from "Application/_Interface/IRequest";
@@ -514,7 +513,7 @@ declare module "Application/Initializer" {
     import { IStateReceiver } from "Application/_Interface/IStateReceiver";
     import Request from "Application/_Request/Request";
     import { HashMap } from "Application/Type";
-    import { ISerializableState } from "Application/_Interface/IStateReceiver";
+    import { ISerializableState } from "Application/_Interface/ISerializableState";
     export default function init(defaultConfigData?: HashMap<string>, envFactory?: IEnvFactory, stateReceiver?: IStateReceiver): Request;
     export function registerComponent(uid: string, component: ISerializableState): void;
 }
