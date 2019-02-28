@@ -10,7 +10,6 @@ export interface ILocation {
     host: string;
     hostname: string;
     port: string;
-    hash: string;
     href: string;
     pathname: string;
     search: string;
