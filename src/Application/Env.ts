@@ -8,8 +8,34 @@ import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStore } from 'Application/_Interface/IStore';
 import Request from 'Application/_Request/Request';
 
-export function getLocation(): ILocation {
-    return Request.getCurrent().location;
+export const location: ILocation = {
+    get protocol() {
+        return Request.getCurrent().location.protocol;
+    },
+
+    get host() {
+        return Request.getCurrent().location.host;
+    },
+
+    get hostname() {
+        return Request.getCurrent().location.hostname;
+    },
+
+    get port() {
+        return Request.getCurrent().location.port;
+    },
+
+    get href() {
+        return Request.getCurrent().location.href;
+    },
+
+    get pathname() {
+        return Request.getCurrent().location.pathname;
+    },
+
+    get search() {
+        return Request.getCurrent().location.search;
+    }
 }
 
 export const cookie: ICookie = {
