@@ -69,10 +69,6 @@ export default class AppRequest implements IRequest {
         this.__storages = storages;
     }
 
-    /**
-     * Получение хранилища для сохранений данных в рамках запроса.
-     * @param {string} key Тип хранилища
-     */
     getStore(key: string): IStore {
         if (!this.__storages[key]) {
             this.__storages[key] = new Store(new FakeWebStorage());
@@ -80,13 +76,10 @@ export default class AppRequest implements IRequest {
         return this.__storages[key];
     }
 
-    /**
-     * FIXME нужны ли нам Storage?
-     */
-    addStore(key: string, storage: IStore) {
-        if (this.__storages[key]) {
-            throw new Error(`attempt to overwrite used storage "${key}"`);
-        }
+    setStore(key: string, storage: IStore) {
+        // if (this.__storages[key]) {
+        //     throw new Error(`attempt to overwrite used storage "${key}"`);
+        // }
         this.__storages[key] = storage;
     }
 

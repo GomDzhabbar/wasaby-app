@@ -97,3 +97,7 @@ export function getStateReceiver(): IStateReceiver {
 export function getStore(type: string): IStore {
     return Request.getCurrent().getStore(type);
 }
+
+export function setStore(type: string, store: IStore) {
+    return Request.getCurrent().setStore(type, store);
+}

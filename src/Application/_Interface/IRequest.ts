@@ -30,4 +30,11 @@ export interface IRequest {
      * @param key Тип хранилища.
      */
     getStore(key: string): IStore;
+
+    /**
+     * Установка хранилища
+     * @param key {string} Тип хранилища.
+     * @param storage {IStore}
+     */
+    setStore(key: string, storage: IStore);
 }
