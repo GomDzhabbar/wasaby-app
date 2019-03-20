@@ -2,7 +2,6 @@
   "compilerOptions": {
     "moduleResolution": "classic",
     "target": "es5",
-    "baseUrl": "./",
     "pretty": true,
     "declaration": true,
     "emitDeclarationOnly": true,
