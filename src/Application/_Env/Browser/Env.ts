@@ -15,6 +15,7 @@ export default class EnvBrowser implements IEnv {
     cookie: ICookie
     location: ILocation
     storages: IStoreMap
+    global = { appRequest: undefined };
 
     constructor(cfg: Config) {
         this.location = window.location;
@@ -44,6 +45,10 @@ export default class EnvBrowser implements IEnv {
             "localStorage": localStorage,
             "sessionStorage": sessionStorage
         }
+    }
+
+    getGlobal() {
+        return this.global;
     }
 
     static create(cfg: Config) {

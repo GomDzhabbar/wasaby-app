@@ -10,7 +10,10 @@ import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStoreMap } from 'Application/_Interface/IStore';
 import { IStore } from 'Application/_Interface/IStore';
 
-let globalEnv: IRequest = null;
+let globalEnv = { appRequest: undefined };
+let getGlobal: () => { appRequest: IRequest|undefined } = () => {
+    return globalEnv;
+}
 
 /**
  * @class
@@ -62,6 +65,8 @@ export default class AppRequest implements IRequest {
             location
         } = env;
 
+        getGlobal = env.getGlobal;
+
         this.console = console;
         this.cookie = cookie;
         this.location = location;
@@ -101,7 +106,7 @@ export default class AppRequest implements IRequest {
      * @name Env/Request#setCurrent
      */
     static setCurrent(request: IRequest) {
-        globalEnv = request;
+        getGlobal().appRequest = request;
     }
 
     /**
@@ -109,7 +114,7 @@ export default class AppRequest implements IRequest {
      * @static
      * @name Env/Request#getCurrent
      */
-    static getCurrent(): IRequest | null {
-        return globalEnv;
+    static getCurrent(): IRequest | undefined {
+        return getGlobal().appRequest;
     }
 }
