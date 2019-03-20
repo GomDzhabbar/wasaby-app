@@ -7,14 +7,16 @@
       "url": "git@github.com:saby/wasaby-app.git"
    },
    "files": [
-      "src/*"
+      "src/*",
+      "tsconfig.base.json",
+      "tsconfig.declare.json"
    ],
    "types": "types.d.ts",
    "typesVersions": {
       ">=3.1": { "*": ["./*"] }
    },
    "scripts": {
-      "postinstall": "tsc -p tsconfig.declare.json",
+      "postinstall": "tsc -p ./tsconfig.declare.json",
       "build": "tsc -p ./tsconfig.json || tsc -p ./tsconfig.declare.json",
       "declare": "tsc -p ./tsconfig.declare.json",
       "pretest": "node test/server/build.js",
