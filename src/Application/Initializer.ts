@@ -29,3 +29,7 @@ export default function init(
 export function registerComponent(uid: string, component: ISerializableState) {
     Request.getCurrent().getStateReceiver().register(uid, component);
 }
+
+export function isInit(): boolean {
+    return !! Request.getCurrent();
+}

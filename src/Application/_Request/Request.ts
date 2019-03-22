@@ -10,7 +10,10 @@ import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStoreMap } from 'Application/_Interface/IStore';
 import { IStore } from 'Application/_Interface/IStore';
 
-let globalEnv: IRequest = null;
+let globalEnv = { appRequest: undefined };
+let getGlobal: () => { appRequest: IRequest|undefined } = () => {
+    return globalEnv;
+}
 
 /**
  * @class
@@ -62,6 +65,8 @@ export default class AppRequest implements IRequest {
             location
         } = env;
 
+        getGlobal = env.getGlobal;
+
         this.console = console;
         this.cookie = cookie;
         this.location = location;
@@ -69,10 +74,6 @@ export default class AppRequest implements IRequest {
         this.__storages = storages;
     }
 
-    /**
-     * Получение хранилища для сохранений данных в рамках запроса.
-     * @param {string} key Тип хранилища
-     */
     getStore(key: string): IStore {
         if (!this.__storages[key]) {
             this.__storages[key] = new Store(new FakeWebStorage());
@@ -80,13 +81,10 @@ export default class AppRequest implements IRequest {
         return this.__storages[key];
     }
 
-    /**
-     * FIXME нужны ли нам Storage?
-     */
-    addStore(key: string, storage: IStore) {
-        if (this.__storages[key]) {
-            throw new Error(`attempt to overwrite used storage "${key}"`);
-        }
+    setStore(key: string, storage: IStore) {
+        // if (this.__storages[key]) {
+        //     throw new Error(`attempt to overwrite used storage "${key}"`);
+        // }
         this.__storages[key] = storage;
     }
 
@@ -108,7 +106,7 @@ export default class AppRequest implements IRequest {
      * @name Env/Request#setCurrent
      */
     static setCurrent(request: IRequest) {
-        globalEnv = request;
+        getGlobal().appRequest = request;
     }
 
     /**
@@ -116,7 +114,7 @@ export default class AppRequest implements IRequest {
      * @static
      * @name Env/Request#getCurrent
      */
-    static getCurrent(): IRequest | null {
-        return globalEnv;
+    static getCurrent(): IRequest | undefined {
+        return getGlobal().appRequest;
     }
 }
