@@ -65,7 +65,7 @@ export default class AppRequest implements IRequest {
             location
         } = env;
 
-        getGlobal = env.getGlobal;
+        getGlobal = env.getGlobal.bind(env);
 
         this.console = console;
         this.cookie = cookie;
