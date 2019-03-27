@@ -193,23 +193,6 @@ declare module "Application/_Interface/ILocation" {
         search: string;
     }
 }
-/// <amd-module name="Application/_Interface/IEnv" />
-declare module "Application/_Interface/IEnv" {
-    import Config from "Application/_Config/Config";
-    import { IConsole } from "Application/_Interface/IConsole";
-    import { ICookie } from "Application/_Interface/ICookie";
-    import { ILocation } from "Application/_Interface/ILocation";
-    import { IStoreMap } from "Application/_Interface/IStore";
-    export interface IEnv {
-        console: IConsole;
-        cookie: ICookie;
-        location: ILocation;
-        storages: IStoreMap;
-    }
-    export interface IEnvFactory {
-        create(config: Config): IEnv;
-    }
-}
 /// <amd-module name="Application/_Interface/IStateReceiver" />
 declare module "Application/_Interface/IStateReceiver" {
     import { ISerializableState } from "Application/_Interface/ISerializableState";
@@ -268,6 +251,33 @@ declare module "Application/_Interface/IRequest" {
          * @param key Тип хранилища.
          */
         getStore(key: string): IStore;
+        /**
+         * Установка хранилища
+         * @param key {string} Тип хранилища.
+         * @param storage {IStore}
+         */
+        setStore(key: string, storage: IStore): any;
+    }
+}
+/// <amd-module name="Application/_Interface/IEnv" />
+declare module "Application/_Interface/IEnv" {
+    import Config from "Application/_Config/Config";
+    import { IConsole } from "Application/_Interface/IConsole";
+    import { ICookie } from "Application/_Interface/ICookie";
+    import { ILocation } from "Application/_Interface/ILocation";
+    import { IRequest } from "Application/_Interface/IRequest";
+    import { IStoreMap } from "Application/_Interface/IStore";
+    export interface IEnv {
+        console: IConsole;
+        cookie: ICookie;
+        location: ILocation;
+        storages: IStoreMap;
+        getGlobal: () => {
+            appRequest: IRequest | undefined;
+        };
+    }
+    export interface IEnvFactory {
+        create(config: Config): IEnv;
     }
 }
 /// <amd-module name="Application/_Request/Request" />
@@ -317,15 +327,8 @@ declare module "Application/_Request/Request" {
         private __stateReceiver;
         private readonly __storages;
         constructor(env: IEnv, config: Config);
-        /**
-         * Получение хранилища для сохранений данных в рамках запроса.
-         * @param {string} key Тип хранилища
-         */
         getStore(key: string): IStore;
-        /**
-         * FIXME нужны ли нам Storage?
-         */
-        addStore(key: string, storage: IStore): void;
+        setStore(key: string, storage: IStore): void;
         setStateReceiver(stateReceiver: IStateReceiver): void;
         getStateReceiver(): IStateReceiver;
         getConfig(): Config;
@@ -340,7 +343,7 @@ declare module "Application/_Request/Request" {
          * @static
          * @name Env/Request#getCurrent
          */
-        static getCurrent(): IRequest | null;
+        static getCurrent(): IRequest | undefined;
     }
 }
 /// <amd-module name="Application/Config" />
@@ -414,7 +417,13 @@ declare module "Application/_Env/Browser/Env" {
         cookie: ICookie;
         location: ILocation;
         storages: IStoreMap;
+        global: {
+            appRequest: any;
+        };
         constructor(cfg: Config);
+        getGlobal(): {
+            appRequest: any;
+        };
         static create(cfg: Config): EnvBrowser;
     }
 }
@@ -427,11 +436,12 @@ declare module "Application/Env" {
     import { ILocation } from "Application/_Interface/ILocation";
     import { IStateReceiver } from "Application/_Interface/IStateReceiver";
     import { IStore } from "Application/_Interface/IStore";
-    export function getLocation(): ILocation;
+    export const location: ILocation;
     export const cookie: ICookie;
     export const logger: IConsole;
     export function getStateReceiver(): IStateReceiver;
     export function getStore(type: string): IStore;
+    export function setStore(type: string, store: IStore): any;
 }
 /// <amd-module name="Application/_Interface/IConfig" />
 declare module "Application/_Interface/IConfig" {
@@ -516,4 +526,5 @@ declare module "Application/Initializer" {
     import { ISerializableState } from "Application/_Interface/ISerializableState";
     export default function init(defaultConfigData?: HashMap<string>, envFactory?: IEnvFactory, stateReceiver?: IStateReceiver): Request;
     export function registerComponent(uid: string, component: ISerializableState): void;
+    export function isInit(): boolean;
 }
