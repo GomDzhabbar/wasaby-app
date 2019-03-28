@@ -91,6 +91,9 @@ export const logger: IConsole = {
 };
 
 export function getStateReceiver(): IStateReceiver {
+    if (!Request.getCurrent()) {
+        throw new Error("+++++++++++++++++++++++ Request is undefined!")
+    }
     return Request.getCurrent().getStateReceiver();
 }
 
