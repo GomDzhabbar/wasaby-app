@@ -8,6 +8,16 @@ import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStore } from 'Application/_Interface/IStore';
 import Request from 'Application/_Request/Request';
 
+function isAppInit() {
+    if (!Request.getCurrent()) {
+        try {
+            throw new Error("Application isn't initialized!")
+        } catch (e) {
+            throw new Error(e.stack)
+        }
+    }
+}
+
 export const location: ILocation = {
     get protocol() {
         return Request.getCurrent().location.protocol;
@@ -91,20 +101,16 @@ export const logger: IConsole = {
 };
 
 export function getStateReceiver(): IStateReceiver {
-    if (!Request.getCurrent()) {
-        try {
-            throw new Error("///Request is undefined!")
-        } catch (e) {
-            throw new Error(e.stack)
-        }
-    }
+    isAppInit();
     return Request.getCurrent().getStateReceiver();
 }
 
 export function getStore(type: string): IStore {
+    isAppInit();
     return Request.getCurrent().getStore(type);
 }
 
 export function setStore(type: string, store: IStore) {
+    isAppInit();
     return Request.getCurrent().setStore(type, store);
 }
