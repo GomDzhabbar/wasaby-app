@@ -17,10 +17,16 @@ export default function init(
     envFactory: IEnvFactory = EnvBrowser,
     stateReceiver: IStateReceiver = new StateReceiver(),
 ): Request {
+    try {
+        throw new Error('start');
+    } catch (e) {
+        console.log('[wasaby-app]', 'start init', e.stack);
+    }
     const config = new Config(defaultConfigData);
     stateReceiver.register(config.getUID(), config);
     const request = new Request(envFactory.create(config), config);
     request.setStateReceiver(stateReceiver);
+    console.log('[wasaby-app]', 'setRequest');
     Request.setCurrent(request);
 
     return request;
