@@ -45,6 +45,10 @@ export const location: ILocation = {
 
     get search() {
         return Request.getCurrent().location.search;
+    },
+
+    get hash() {
+        return Request.getCurrent().location.hash;
     }
 }
 
