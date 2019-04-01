@@ -8,8 +8,8 @@ import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStoreMap } from 'Application/_Interface/IStore';
 import { IStore } from 'Application/_Interface/IStore';
 import { FakeWebStorage } from "Application/_Request/FakeWebStorage";
+import Store from 'Application/_Request/Store';
 import { Config } from "Application/Config";
-import { Store } from 'Application/Request';
 
 let globalEnv = { appRequest: undefined };
 let getGlobal: () => { appRequest: IRequest|undefined } = () => {
