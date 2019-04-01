@@ -13,4 +13,5 @@ export interface ILocation {
     href: string;
     pathname: string;
     search: string;
+    hash: string;
 }

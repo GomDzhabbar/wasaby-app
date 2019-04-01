@@ -1,7 +1,5 @@
 /// <amd-module name='Application/_Env/Browser/Env' />
-import Config from 'Application/_Config/Config';
 import Cookie from 'Application/_Env/Browser/Cookie';
-import Store from 'Application/_Env/Browser/Store';
 import Console, { LogLevel } from 'Application/_Env/Console';
 import ObjectStore from 'Application/_Env/ObjectStore';
 import { IConsole } from 'Application/_Interface/IConsole';
@@ -9,6 +7,8 @@ import { ICookie } from 'Application/_Interface/ICookie';
 import { IEnv } from 'Application/_Interface/IEnv';
 import { ILocation } from 'Application/_Interface/ILocation';
 import { IStore, IStoreMap } from 'Application/_Interface/IStore';
+import { Config } from "Application/Config";
+import { Store } from 'Application/Request';
 
 export default class EnvBrowser implements IEnv {
     console: IConsole

@@ -1,6 +1,4 @@
 /// <amd-module name="Application/_Request/Request" />
-import Config from "Application/_Config/Config";
-import Store, { FakeWebStorage } from 'Application/_Env/Browser/Store';
 import { IConsole } from 'Application/_Interface/IConsole';
 import { ICookie } from 'Application/_Interface/ICookie';
 import { IEnv } from 'Application/_Interface/IEnv';
@@ -9,6 +7,9 @@ import { IRequest } from 'Application/_Interface/IRequest';
 import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStoreMap } from 'Application/_Interface/IStore';
 import { IStore } from 'Application/_Interface/IStore';
+import { FakeWebStorage } from "Application/_Request/FakeWebStorage";
+import { Config } from "Application/Config";
+import { Store } from 'Application/Request';
 
 let globalEnv = { appRequest: undefined };
 let getGlobal: () => { appRequest: IRequest|undefined } = () => {
