@@ -39,7 +39,7 @@
                 };
                 let request = AppInit.default(defaultCfg, EnvBrowser, new StateReceiver.default(serverState));
                 logger.info("Info", Config.get("someKey"));
-                logger.warning("Warning", Config.get("foo"));
+                logger.warn("Warning", Config.get("foo"));
                 logger.error("Error: ", Config.get("baz"));
              });
         </script>

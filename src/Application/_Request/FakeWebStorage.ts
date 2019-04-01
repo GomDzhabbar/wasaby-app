@@ -1,4 +1,4 @@
-/// <amd-module name="Application/_Request/FakeStorage" />
+/// <amd-module name="Application/_Request/FakeWebStorage" />
 
 /**
  * Эмуляция любого Storage браузера
