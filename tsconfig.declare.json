@@ -5,7 +5,8 @@
     "pretty": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outFile": "./types"
+    "outFile": "./types",
+    "baseUrl": "src"
   },
   "include": [
     "src/**/*.ts"

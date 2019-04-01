@@ -1,12 +1,23 @@
 /// <amd-module name="Application/Env" />
 export { default as EnvBrowser } from 'Application/_Env/Browser/Env';
+export { default as StateReceiver } from 'Application/_Env/Browser/StateReceiver';
 export { LogLevel } from 'Application/_Env/Console';
 import { IConsole } from 'Application/_Interface/IConsole';
 import { ICookie } from 'Application/_Interface/ICookie';
 import { ILocation } from 'Application/_Interface/ILocation';
 import { IStateReceiver } from 'Application/_Interface/IStateReceiver';
 import { IStore } from 'Application/_Interface/IStore';
-import Request from 'Application/_Request/Request';
+import Request from 'Application/Request';
+
+function isAppInit() {
+    if (!Request.getCurrent()) {
+        try {
+            throw new Error("Application isn't initialized!")
+        } catch (e) {
+            throw new Error(e.stack)
+        }
+    }
+}
 
 export const location: ILocation = {
     get protocol() {
@@ -35,6 +46,10 @@ export const location: ILocation = {
 
     get search() {
         return Request.getCurrent().location.search;
+    },
+
+    get hash() {
+        return Request.getCurrent().location.hash;
     }
 }
 
@@ -91,13 +106,16 @@ export const logger: IConsole = {
 };
 
 export function getStateReceiver(): IStateReceiver {
+    isAppInit();
     return Request.getCurrent().getStateReceiver();
 }
 
 export function getStore(type: string): IStore {
+    isAppInit();
     return Request.getCurrent().getStore(type);
 }
 
 export function setStore(type: string, store: IStore) {
+    isAppInit();
     return Request.getCurrent().setStore(type, store);
 }
