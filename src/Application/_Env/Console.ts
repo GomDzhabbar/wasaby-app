@@ -15,7 +15,7 @@ export default class Console implements IConsole {
     private __logLevel: LogLevel;
     private __console;
     constructor(console) {
-        this.__logLevel = LogLevel.error;
+        this.__logLevel = LogLevel.info;
         this.__console = console;
     }
 
