@@ -1,6 +1,6 @@
 {
    "name": "wasaby-app",
-   "version": "19.300.0",
+   "version": "19.310.0",
    "license": "GPL-3.0",
    "repository": {
       "type": "git",
@@ -37,12 +37,12 @@
       "express": "^4.16.4",
       "mocha": "^5.2.0",
       "requirejs": "^2.3.6",
-      "saby-ui": "git+https://git@github.com/saby/UI.git#rc-19.100"
+      "saby-ui": "git+https://git@github.com/saby/UI.git#rc-19.310"
    },
    "dependencies": {
       "tslib": "^1.9.3",
       "tslint": "^5.12.1",
       "typescript": "^3.1.3",
-      "saby-typescript": "git+https://github.com/saby/TypeScript.git#rc-19.300"
+      "saby-typescript": "git+https://github.com/saby/TypeScript.git#rc-19.310"
    }
 }
