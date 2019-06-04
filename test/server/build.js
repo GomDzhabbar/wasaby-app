@@ -32,12 +32,12 @@ fs.writeFile(path.join(__dirname, '_settings.js'),
 
 /**
  * @param {string} dir Путь до директории с тестами
- * @returns {string[]} Список путей до unit-тестов
+ * @returns {string[]} Список путей до *.test.js unit-тестов
  */
 function getTestsDep(dir) {
     return fs.readdirSync(dir).reduce((paths, item) => {
         const itemPath = `${dir}/${item}`;
-        if (!fs.statSync(itemPath).isFile()) { return paths; }
+        if (!fs.statSync(itemPath).isFile() || !item.includes('.test.js')) { return paths; }
         return [...paths, item];
     }, []);
 }

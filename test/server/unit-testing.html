@@ -9,15 +9,23 @@
 <body>
    <div id="mocha"></div>
 
-   <script src="https://www.chaijs.com/chai.js"></script>
    <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
-   <script src="https://unpkg.com/mocha@5.2.0/mocha.js"></script>
-   <script src="./_settings.js"></script>
+   <script src="https://unpkg.com/mocha/mocha"></script>
 
    <script>
-      mocha.setup('bdd');
-      requirejs.config({ baseUrl: './src'});
-      requirejs(unitTests, mocha.run);
+      requirejs.config({
+         baseUrl: './src',
+         paths: {
+            chai: "https://unpkg.com/chai/chai"
+         }
+      });
+      requirejs(['chai'], (chai) => {
+         mocha.setup('bdd');
+         chai.config.showDiff = true;
+         requirejs(['../_settings'], () => {
+            requirejs(unitTests, mocha.run.bind(null, console.log))
+         });
+      })
    </script>
 </body>
 
