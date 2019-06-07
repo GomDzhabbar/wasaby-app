@@ -21,11 +21,11 @@
    },
    "scripts": {
       "postinstall": "tsc -p ./tsconfig.declare.json || echo Installed",
-      "build": "tsc -p ./tsconfig.json || tsc -p ./tsconfig.declare.json",
+      "build": "tsc -p ./tsconfig.json || tsc -p ./tsconfig.declare.json || saby-units --install",
       "declare": "tsc -p ./tsconfig.declare.json",
       "pretest": "npm run test:clean > ../_.log && tsc -p ./test/tsconfig.json > ../_.log || node test/server/build.js",
       "server": "node test/server/build.js && node test/server/run.js",
-      "test": "cd ./test && mocha mocha-require.js --test=all",
+      "test": "cd ./test && nyc --reporter=html mocha mocha-require.js --test=all",
       "test:browser": "npm run pretest && saby-units --browser --report",
       "test:browser-coverage": "npm run pretest && saby-units --browser --report --coverage",
       "test:local_browser": "npm run pretest && start http://localhost:8000/unit-testing.html && npm run server",
@@ -34,12 +34,41 @@
    "demo": {
       "port": 8000
    },
+   
+   "saby-units": {
+      "moduleType": "amd",
+      "root": "test/server/src",
+      "tests": "tests",
+      "initializer": "test/server/_settings.js",
+      "report": "./artifacts/xunit-report.xml",
+      "htmlCoverageReport": "./artifacts/coverage.html",
+      "url": {
+         "port": 8082
+      },
+      "links": {
+         "node_modules/sbis3-ws/WS.Core": "WS.Core"
+       }
+   },
+   "nyc": {
+      "include": [
+        "*.js"
+      ],
+      "reporter": [
+        "text",
+        "html"
+      ],
+      "cache": false,
+      "eager": true,
+      "report-dir": "./artifacts/coverage"
+    },
    "devDependencies": {
       "@types/node": "^12.0.4",
       "@types/chai": "^4.1.7",
       "@types/mocha": "^5.2.7",
       "@types/requirejs": "^2.1.31",
       "chai": "^4.2.0",
+      "sbis3-ws": "git+https://git.sbis.ru/sbis/ws.git#rc-19.400",
+      "saby-units": "git+https://github.com/saby/Units.git#rc-19.400",
       "express": "^4.16.4",
       "mocha": "^5.2.0",
       "requirejs": "^2.3.6",

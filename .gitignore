@@ -1,8 +1,9 @@
 .genie
-.vscode
+# .vscode
 node_modules
 src/**/*.js
 test/unit/*.js
 !src/tslib.js
 test/server/src
 _*
+*.lock
