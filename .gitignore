@@ -1,5 +1,5 @@
 .genie
-# .vscode
+.vscode
 node_modules
 src/**/*.js
 test/unit/*.js

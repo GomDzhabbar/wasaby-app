@@ -25,7 +25,7 @@
       "declare": "tsc -p ./tsconfig.declare.json",
       "pretest": "npm run test:clean > ../_.log && tsc -p ./test/tsconfig.json > ../_.log || node test/server/build.js",
       "server": "node test/server/build.js && node test/server/run.js",
-      "test": "cd ./test && nyc --reporter=html mocha mocha-require.js --test=all",
+      "test": "cd ./test/server && mocha mocha-require.js --test=all",
       "test:browser": "npm run pretest && saby-units --browser --report",
       "test:browser-coverage": "npm run pretest && saby-units --browser --report --coverage",
       "test:local_browser": "npm run pretest && start http://localhost:8000/unit-testing.html && npm run server",
@@ -40,26 +40,25 @@
       "root": "test/server/src",
       "tests": "tests",
       "initializer": "test/server/_settings.js",
-      "report": "./artifacts/xunit-report.xml",
-      "htmlCoverageReport": "./artifacts/coverage.html",
+      "report": "./test/artifacts/xunit-report.xml",
+      "htmlCoverageReport": "./test/artifacts/coverage",
+      "jsonCoverageReport": "./test/artifacts/coverage.json",
       "url": {
          "port": 8082
       },
-      "links": {
-         "node_modules/sbis3-ws/WS.Core": "WS.Core"
+      "modules": {
+          "WS.Core": "node_modules/sbis3-ws/WS.Core"
        }
    },
    "nyc": {
       "include": [
-        "*.js"
+        "test/server/src/**/*.js"
       ],
       "reporter": [
         "text",
         "html"
       ],
-      "cache": false,
-      "eager": true,
-      "report-dir": "./artifacts/coverage"
+      "report-dir": "test/artifacts/coverage"
     },
    "devDependencies": {
       "@types/node": "^12.0.4",

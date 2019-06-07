@@ -13,11 +13,16 @@ if (!fs.existsSync(srcFolder)) {
     return;
 }
 
-if (fs.existsSync(standSrcFolder)) { delDirSync(standSrcFolder); }
-linkModules(getModulesPaths(srcFolder), standSrcFolder);
+if (!fs.existsSync(standSrcFolder)) { fs.mkdirSync(standSrcFolder); }
 
-if (fs.existsSync(standUnitFolder)) { delDirSync(standUnitFolder); }
-linkModules(getModulesPaths(srcUnitFolder), standUnitFolder);
+const otherModules = require(path.join(root, 'package.json'))['saby-units']['modules'];
+const otherModulesPaths = Object.keys(otherModules).reduce((paths, module_name)=>{
+    paths[module_name] = path.resolve(root, otherModules[module_name]);
+    return paths;
+}, Object.create(null));
++
+linkModules({...getModulesPaths(srcFolder), ...otherModulesPaths} , standSrcFolder);
+if (!fs.existsSync(standUnitFolder)) { fs.symlinkSync(srcUnitFolder, standUnitFolder, 'dir'); }
 
 const standUnitPaths = getTestsDep(srcUnitFolder).map((p) => `src/tests/${p}`);
 
@@ -51,11 +56,14 @@ function getModulesPaths(dirPath) {
 /** Линк словаря путей модулей в указанную директорию  */
 function linkModules(paths, targetDir) {
     Object.keys(paths)
-        .filter((entity_name) => fs.lstatSync(paths[entity_name]).isDirectory())
         .forEach((module_name) => {
             const target = path.resolve(targetDir, module_name);
-            if (fs.existsSync(target)) { delDirSync(target); }
-            fs.symlinkSync(paths[module_name], target, 'dir');
+            if (fs.existsSync(target)) { return; }
+            if (fs.lstatSync(paths[module_name]).isDirectory()) {
+                fs.symlinkSync(paths[module_name], target, 'dir');
+            } else {
+                fs.symlinkSync(paths[module_name], target, 'file');
+            }
         });
 }
 
