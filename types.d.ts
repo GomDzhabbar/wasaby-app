@@ -248,8 +248,8 @@ declare module "Application/_Interface/IEnv" {
         create(config: Config): IEnv;
     }
 }
-/// <amd-module name="Application/_Request/FakeStorage" />
-declare module "Application/_Request/FakeStorage" {
+/// <amd-module name="Application/_Request/FakeWebStorage" />
+declare module "Application/_Request/FakeWebStorage" {
     /**
      * Эмуляция любого Storage браузера
      */
@@ -261,6 +261,27 @@ declare module "Application/_Request/FakeStorage" {
         removeItem(key: string): void;
         key(index: number): string;
         clear(): void;
+    }
+}
+/// <amd-module name="Application/_Request/Store" />
+declare module "Application/_Request/Store" {
+    import { IStore } from "Application/_Interface/IStore";
+    /**
+     * Класс, реализующий интерфейс {@link Core/Request/IStore},
+     * предназначенный для работы с localStorage и SessionStorage
+     * @class
+     * @name Application/_Env/Browser/Store
+     * @implements Application/_Interface/IStore
+     * @author Санников К.А.
+     */
+    export default class Store implements IStore {
+        private __storage;
+        constructor(storageType: Storage);
+        get(key: string): string;
+        set(key: string, data: string): boolean;
+        remove(key: string): void;
+        getKeys(): string[];
+        toObject(): {};
     }
 }
 /// <amd-module name="Application/_Request/Request" />
@@ -327,27 +348,6 @@ declare module "Application/_Request/Request" {
          * @name Env/Request#getCurrent
          */
         static getCurrent(): IRequest | undefined;
-    }
-}
-/// <amd-module name="Application/_Request/Store" />
-declare module "Application/_Request/Store" {
-    import { IStore } from "Application/_Interface/IStore";
-    /**
-     * Класс, реализующий интерфейс {@link Core/Request/IStore},
-     * предназначенный для работы с localStorage и SessionStorage
-     * @class
-     * @name Application/_Env/Browser/Store
-     * @implements Application/_Interface/IStore
-     * @author Санников К.А.
-     */
-    export default class Store implements IStore {
-        private __storage;
-        constructor(storageType: Storage);
-        get(key: string): string;
-        set(key: string, data: string): boolean;
-        remove(key: string): void;
-        getKeys(): string[];
-        toObject(): {};
     }
 }
 /// <amd-module name="Application/Request" />
