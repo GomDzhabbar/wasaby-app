@@ -1,5 +1,6 @@
 /// <amd-module name="Application/Env" />
 export { default as EnvBrowser } from 'Application/_Env/Browser/Env';
+export { getQueryParams } from 'Application/_Env/QueryParams';
 export { default as StateReceiver } from 'Application/_Env/Browser/StateReceiver';
 export { LogLevel } from 'Application/_Env/Console';
 import { IConsole } from 'Application/_Interface/IConsole';

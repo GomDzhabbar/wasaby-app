@@ -438,6 +438,34 @@ declare module "Application/_Env/Browser/Env" {
         static create(cfg: Config): EnvBrowser;
     }
 }
+/// <amd-module name="Application/_Env/QueryParams" />
+declare module "Application/_Env/QueryParams" {
+    export default function (query: string): {
+        hash: PARAMS;
+        get: PARAMS;
+    };
+    /**
+     * Извлекает параметры всех типов
+     * @param {String} query Строка с get и hash параметрами
+     * @returns {Object}
+     */
+    export function extractAllParams(query: string): {
+        [param_type: string]: PARAMS;
+    };
+    /**
+     * Извлекает параметры из строки
+     * @param {String} str Строка get/hash параметров, разделенных &
+     * @returns {PARAMS} Словарь параметров
+     */
+    export function extractParams(str: string): PARAMS;
+    /**
+     * @typedef {Object} PARAMS
+     * @property {String} param_name значение параметра
+     */
+    type PARAMS = {
+        [param_name: string]: string;
+    };
+}
 /// <amd-module name="Application/_Interface/IConfig" />
 declare module "Application/_Interface/IConfig" {
     import { Native } from "Application/Type";
@@ -511,6 +539,7 @@ declare module "Application/_Env/Browser/StateReceiver" {
 /// <amd-module name="Application/Env" />
 declare module "Application/Env" {
     export { default as EnvBrowser } from "Application/_Env/Browser/Env";
+    export { default as getQueryParams } from "Application/_Env/QueryParams";
     export { default as StateReceiver } from "Application/_Env/Browser/StateReceiver";
     export { LogLevel } from "Application/_Env/Console";
     import { IConsole } from "Application/_Interface/IConsole";
