@@ -13,7 +13,7 @@ const QUERY_PARAMS = [GET_SEPARATOR, HASH_SEPARATOR];
  */
 
 /**
- * Функция getQueryParams получает URL-Like строку и возвращает все ивзлеченные GET и HASH параметры
+ * Функция parseQuery получает URL-Like строку и возвращает все ивзлеченные GET и HASH параметры
  * @param {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
  * @return {PARAMS} Извлеченные параметры
  * @public
@@ -21,13 +21,13 @@ const QUERY_PARAMS = [GET_SEPARATOR, HASH_SEPARATOR];
  * @example
  * <pre>
  *  require(['Application/Env'], function (Env) {
- *      var params = Env.getQueryParams('http://example.com/path#name=leha&age=2?name=ferret&color=purple');
+ *      var params = Env.parseQuery('http://example.com/path#name=leha&age=2?name=ferret&color=purple');
  *      params.get  // { name: 'ferret', color: 'purple' }
  *      params.hash // { name: 'leha', age: '2' }
  *  });
  * </pre>
  */
-export function getQueryParams(query: string): PARAMS {
+export function parseQuery(query: string): PARAMS {
     const params = extractAllParams(query);
     return {
         hash: params[HASH_SEPARATOR],
@@ -74,7 +74,7 @@ export function extractParams(str: string): PARAMS_SET {
  * @property {PARAMS_SET} get Словарь GET параметров
  * @property {PARAMS_SET} hash Словарь HASH параметров
  */
-type PARAMS = { [param_type in PARAM_TYPE]: PARAMS_SET };
+export type PARAMS = { [param_type in PARAM_TYPE]: PARAMS_SET };
 
 /**
  * @typedef {String} PARAM_TYPE

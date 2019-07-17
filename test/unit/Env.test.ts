@@ -7,9 +7,32 @@ describe('Application/Env', () => {
     AppInit();
 
     describe('location', () => {
+
+        it('query GET', () => {
+            const get_params = {
+                g1: 'v1',
+                g2: 'v2'
+            };
+            setParams('?', get_params);
+            assert.deepEqual(location.query.get, get_params);
+        });
+
+        it('query HASH', () => {
+            const hash_params = {
+                h1: 'v3',
+                h2: 'v4'
+            };
+            setParams('#', hash_params);
+            assert.deepEqual(location.query.hash, hash_params);
+        });
+
         Object.keys(location).forEach((prop) => {
-            it(prop, () => { assert.strictEqual(location[prop], document.location[prop]); })
-        })
+            if (!window.location[prop]) { return; }
+
+            it(prop, () => {
+                assert.strictEqual(location[prop], window.location[prop]);
+            })
+        });
     });
 
     describe('cookie', () => {
@@ -99,4 +122,13 @@ describe('Application/Env', () => {
 
 function getRandomString() {
     return Math.random().toString(36).substr(2, 6);
+}
+
+function setParams(init, params) {
+    if (window.location.href.indexOf(init) !== -1) { return; }
+    window.location.href += `${getQueryString(init, params)}`;
+}
+
+function getQueryString(init, params) {
+    return Object.keys(params).reduce((query, param) => query + `${param}=${params[param]}&`, init);
 }

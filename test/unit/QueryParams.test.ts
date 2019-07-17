@@ -1,4 +1,4 @@
-import { getQueryParams, extractParams, extractAllParams } from 'Application/_Env/QueryParams';
+import { parseQuery, extractParams, extractAllParams } from 'Application/_Env/QueryParams';
 // import { assert } from 'chai';
 
 describe('Application/_Env/QueryParams', () => {
@@ -69,7 +69,7 @@ describe('Application/_Env/QueryParams', () => {
             }
         };
         Object.keys(queries).forEach((query) => {
-            const params = getQueryParams(query);
+            const params = parseQuery(query);
             it(`${query} GET параметры извлечены`, () => {
                 assert.deepEqual(params.get, queries[query].get);
             });
