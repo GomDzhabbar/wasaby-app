@@ -8,15 +8,6 @@ describe('Application/Env', () => {
 
     describe('location', () => {
 
-        it('query - GET параметры', () => {
-            const get_params = {
-                g1: 'v1',
-                g2: 'v2'
-            };
-            setParams('?', get_params);
-            assert.deepEqual(location.query.get, get_params);
-        });
-
         it('query - HASH параметры', () => {
             const hash_params = {
                 h1: 'v3',
