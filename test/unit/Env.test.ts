@@ -3,12 +3,12 @@ import { default as AppInit } from 'Application/Initializer';
 // import { assert } from 'chai';
 
 describe('Application/Env', () => {
-    if (typeof window === typeof void 0) { return; }
+    if (typeof window === 'undefined') { return; }
     AppInit();
 
     describe('location', () => {
 
-        it('query GET', () => {
+        it('query - GET параметры', () => {
             const get_params = {
                 g1: 'v1',
                 g2: 'v2'
@@ -17,7 +17,7 @@ describe('Application/Env', () => {
             assert.deepEqual(location.query.get, get_params);
         });
 
-        it('query HASH', () => {
+        it('query - HASH параметры', () => {
             const hash_params = {
                 h1: 'v3',
                 h2: 'v4'
@@ -126,9 +126,6 @@ function getRandomString() {
 
 function setParams(init, params) {
     if (window.location.href.indexOf(init) !== -1) { return; }
-    window.location.href += `${getQueryString(init, params)}`;
-}
-
-function getQueryString(init, params) {
-    return Object.keys(params).reduce((query, param) => query + `${param}=${params[param]}&`, init);
+    const query = Object.keys(params).reduce((query, param) => query + `${param}=${params[param]}&`, init);
+    window.location.href += query;
 }
