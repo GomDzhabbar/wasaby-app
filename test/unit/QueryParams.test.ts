@@ -1,22 +1,22 @@
 import { parseQuery, extractParams, extractAllParams } from 'Application/_Env/QueryParams';
 // import { assert } from 'chai';
 
-describe('Application/_Env/QueryParams', () => {
+describe('Application/_Env/QueryParams', function () {
 
-    describe('extractParams', () => {
+    describe('extractParams', function () {
         const params = {
             '': {},
             'p=v': { p: 'v' },
             'p1=v1&p2=v2': { p1: 'v1', p2: 'v2' }
         };
         Object.keys(params).forEach((param_string) => {
-            it(param_string, () => {
+            it(param_string, function () {
                 assert.deepEqual(extractParams(param_string),params[param_string]);
             });
         });
     });
 
-    describe('extractAllParams', () => {
+    describe('extractAllParams', function () {
         const get_params = {
             '': {},
             'g1=v1': { g1: 'v1' },
@@ -38,10 +38,10 @@ describe('Application/_Env/QueryParams', () => {
                 test(g2);
 
                 function test(query) {
-                    it(`${query} GET параметры извлечены`, () => {
+                    it(`${query} GET параметры извлечены`, function () {
                         assert.deepEqual(extractAllParams(query)[get_sep], get_params[get_param]);
                     });
-                    it(`${query} HASH параметры извлечены`, () => {
+                    it(`${query} HASH параметры извлечены`, function () {
                         assert.deepEqual(extractAllParams(query)[hash_sep], hash_params[hash_param]);
                     });
                 }
@@ -49,7 +49,7 @@ describe('Application/_Env/QueryParams', () => {
         });
     });
 
-    describe('getQueryParams()', () => {
+    describe('getQueryParams()', function () {
         const queries = {
             'http://example.com/over/there?name=ferret': {
                 get: { name: 'ferret' },
@@ -70,10 +70,10 @@ describe('Application/_Env/QueryParams', () => {
         };
         Object.keys(queries).forEach((query) => {
             const params = parseQuery(query);
-            it(`${query} GET параметры извлечены`, () => {
+            it(`${query} GET параметры извлечены`, function () {
                 assert.deepEqual(params.get, queries[query].get);
             });
-            it(`${query} HASH параметры извлечены`, () => {
+            it(`${query} HASH параметры извлечены`, function () {
                 assert.deepEqual(params.hash, queries[query].hash);
             });
         })

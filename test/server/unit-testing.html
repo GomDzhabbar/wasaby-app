@@ -19,10 +19,10 @@
             chai: "https://unpkg.com/chai/chai"
          }
       });
-      requirejs(['chai'], (chai) => {
+      requirejs(['chai'], function (chai) {
          mocha.setup('bdd');
          chai.config.showDiff = true;
-         requirejs(['../_settings'], () => {
+         requirejs(['../_settings'], function () {
             requirejs(unitTests, mocha.run.bind(null, console.log))
          });
       })

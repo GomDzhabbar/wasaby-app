@@ -42,7 +42,7 @@ export function parseQuery(query: string): PARAMS {
  */
 export function extractAllParams(query: string): PARAMS {
     return QUERY_PARAMS.reduce((params, param) => {
-        if (!query.includes(param)) {
+        if (query.indexOf(param) === -1) {
             params[param] = Object.create(null);
             return params;
         }

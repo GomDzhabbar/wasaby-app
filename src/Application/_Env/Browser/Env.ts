@@ -19,17 +19,12 @@ export default class EnvBrowser implements IEnv {
     global = { appRequest: undefined };
 
     constructor(cfg: Config) {
-        this.location = new Proxy(window.location, {
-            get(target: ILocation, prop: keyof ILocation) {
-                if (prop === 'query') { return parseQuery(target.href); }
-                return target[prop];
-            },
-            set(target: ILocation, prop: keyof ILocation, value: string) {
-                if (!target[prop] || prop === 'query') { return false; }
-                target[prop] = value;
-                return true;
-            }
-        });
+        try {
+            Object.defineProperty(window.location, 'query', {
+                get: () => parseQuery(window.location.href)
+            })
+        } catch { /** хороним ошибку TypeError: Cannot redefine property */}
+        this.location = window.location
         this.console = new Console(window.console);
         if (cfg.get("Application/Env.LogLevel") !== undefined) {
             this.console.setLogLevel(<LogLevel>cfg.get("Application/Env.LogLevel"));
