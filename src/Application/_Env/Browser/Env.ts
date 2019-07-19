@@ -14,7 +14,7 @@ import { parseQuery } from 'Application/_Env/QueryParams';
 export default class EnvBrowser implements IEnv {
     console: IConsole
     cookie: ICookie
-    location: ILocation = null;
+    location: ILocation;
     storages: IStoreMap
     global = { appRequest: undefined };
 
