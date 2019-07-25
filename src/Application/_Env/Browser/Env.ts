@@ -9,7 +9,7 @@ import { ILocation } from 'Application/_Interface/ILocation';
 import { IStore, IStoreMap } from 'Application/_Interface/IStore';
 import { Config } from "Application/Config";
 import { Store } from 'Application/Request';
-import { parseQuery, PARAMS } from 'Application/_Env/QueryParams';
+import { parseQuery } from 'Application/_Env/QueryParams';
 
 export default class EnvBrowser implements IEnv {
     console: IConsole
@@ -19,12 +19,10 @@ export default class EnvBrowser implements IEnv {
     global = { appRequest: undefined };
 
     constructor(cfg: Config) {
-        try {
-            Object.defineProperty(window.location, 'query', {
-                get: () => parseQuery(window.location.href)
-            })
-        } catch { /** хороним ошибку TypeError: Cannot redefine property */}
-        this.location = window.location as Location & { query: PARAMS };
+        this.location = Object.create(window.location);
+        Object.defineProperty(this.location, 'query', {
+            get: () => parseQuery(this.location.href)
+        });
         this.console = new Console(window.console);
         if (cfg.get("Application/Env.LogLevel") !== undefined) {
             this.console.setLogLevel(<LogLevel>cfg.get("Application/Env.LogLevel"));
