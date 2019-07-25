@@ -12,18 +12,28 @@ const ANY_SEPARATOR = new RegExp(`\\${GET_SEPARATOR}|\\${HASH_SEPARATOR}`);
  */
 
 /**
- * Функция parseQueryHash получает URL-Like строку и возвращает все ивзлеченные HASH параметры
- * @param {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
+ * Функция parseQueryHash получает URL-Like строку и возвращает все ивзлеченные HASH-параметры
+ * @param {String} query URL-Like строка, содержащая HASH-параметры
  * @return {PARAMS_SET} Извлеченные параметры
  * @example
  * <pre>
  *  require(['Application/_Env/QueryParams'], function (QueryParams) {
  *      var getParams = QueryParams.parseQueryHash(window.location) // { name: 'ferret', color: 'purple' }
- *      var hashParams = QueryParams.parseQueryGet(window.location) // { name: 'leha', age: '2' }
  *  });
  * </pre>
  */
 export const parseQueryHash = (query: string): PARAMS_SET => extractQuery(query, HASH_SEPARATOR);
+/**
+ * Функция parseQueryHash получает URL-Like строку и возвращает все ивзлеченные GET-параметры
+ * @param {String} query URL-Like строка, содержащая GET-параметры
+ * @return {PARAMS_SET} Извлеченные параметры
+ * @example
+ * <pre>
+ *  require(['Application/_Env/QueryParams'], function (QueryParams) {
+ *      var hashParams = QueryParams.parseQueryGet(window.location) // { name: 'leha', age: '2' }
+ *  });
+ * </pre>
+ */
 export const parseQueryGet = (query: string): PARAMS_SET => extractQuery(query, GET_SEPARATOR);
 
 /**
