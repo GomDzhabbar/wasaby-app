@@ -217,7 +217,7 @@ declare module "Application/_Interface/ILocation" {
         pathname: string;
         search: string;
         hash: string;
-        query?: PARAMS;
+        query: PARAMS;
     }
 }
 /// <amd-module name="Application/_Interface/IStateReceiver" />

@@ -15,5 +15,5 @@ export interface ILocation {
     pathname: string;
     search: string;
     hash: string;
-    query?: PARAMS
+    query: PARAMS
 }
