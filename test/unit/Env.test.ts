@@ -1,4 +1,4 @@
-import { cookie as AppCookie, location, logger, EnvBrowser } from 'Application/Env';
+import { cookie as AppCookie, location, logger, query} from 'Application/Env';
 import { default as AppInit } from 'Application/Initializer';
 // import { assert } from 'chai';
 
@@ -6,9 +6,9 @@ describe('Application/Env', function () {
     if (typeof window === 'undefined') { return; }
     AppInit();
 
-    describe('location', function () {
+    describe('query', function () {
 
-        // Времены отключены, webdriver падает т.к не может найти элемент #report
+        // отключены, webdriver падает т.к не может найти элемент #report
         // it('query - GET параметры', function () {
         //     const get_params = {
         //         g1: 'v1',
@@ -18,15 +18,17 @@ describe('Application/Env', function () {
         //     assert.deepOwnInclude(location.query.get, get_params);
         // });
 
-        it('query - HASH параметры', function () {
+        it('HASH параметры', function () {
             const hash_params = {
                 h1: 'v3',
                 h2: 'v4'
             };
             setParams('#', hash_params);
-            assert.deepOwnInclude(location.query.hash, hash_params);
+            assert.deepOwnInclude(query.hash, hash_params);
         });
+    });
 
+    describe('location', function () {
         Object.keys(location).forEach((prop) => {
             it(prop, function () {
                 assert.deepEqual(location[prop], window.location[prop]);
@@ -88,7 +90,7 @@ describe('Application/Env', function () {
 
     describe('logger', function () {
         if (typeof Proxy === 'undefined') { return; }
-        
+
         const mock = {
             lastCall: {},
             getLogMethod(method) {

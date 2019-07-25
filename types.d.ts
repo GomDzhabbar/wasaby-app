@@ -202,23 +202,19 @@ declare module "Application/_Env/QueryParams" {
 /// <amd-module name="Application/_Interface/ILocation" />
 declare module "Application/_Interface/ILocation" {
     import { PARAMS } from "Application/_Env/QueryParams";
+    export type LOCATION_KEY = 'protocol' | 'host' | 'hostname' | 'port' | 'href' | 'pathname' | 'search' | 'hash' | 'query';
     /**
      * Описание обобщенного window.location.
      * Выписаны те поля, которые есть на сервисе представления и в браузере
      * @interface
      * @name Core/Request/ILocation
      */
-    export interface ILocation {
-        protocol: string;
-        host: string;
-        hostname: string;
-        port: string;
-        href: string;
-        pathname: string;
-        search: string;
-        hash: string;
+    export type ILocation = {
+        [key in LOCATION_KEY]: string;
+    } & {
         query: PARAMS;
-    }
+    };
+    export const LOCATION_KEYS: LOCATION_KEY[];
 }
 /// <amd-module name="Application/_Interface/IStateReceiver" />
 declare module "Application/_Interface/IStateReceiver" {

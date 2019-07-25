@@ -5,7 +5,6 @@ const HASH_SEPARATOR = '#';
 const GET_SEPARATOR = '?';
 const SEPARATOR = '&';
 const ANY_SEPARATOR = new RegExp(`\\${GET_SEPARATOR}|\\${HASH_SEPARATOR}`);
-const QUERY_PARAMS = [GET_SEPARATOR, HASH_SEPARATOR];
 
 /**
  * @cfg {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
@@ -13,44 +12,32 @@ const QUERY_PARAMS = [GET_SEPARATOR, HASH_SEPARATOR];
  */
 
 /**
- * Функция parseQuery получает URL-Like строку и возвращает все ивзлеченные GET и HASH параметры
+ * Функция parseQueryHash получает URL-Like строку и возвращает все ивзлеченные HASH параметры
  * @param {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
- * @return {PARAMS} Извлеченные параметры
- * @public
- * @author Ибрагимов А.А
+ * @return {PARAMS_SET} Извлеченные параметры
  * @example
  * <pre>
- *  require(['Application/Env'], function (Env) {
- *      var params = Env.parseQuery('http://example.com/path#name=leha&age=2?name=ferret&color=purple');
- *      params.get  // { name: 'ferret', color: 'purple' }
- *      params.hash // { name: 'leha', age: '2' }
+ *  require(['Application/_Env/QueryParams'], function (QueryParams) {
+ *      var getParams = QueryParams.parseQueryHash(window.location) // { name: 'ferret', color: 'purple' }
+ *      var hashParams = QueryParams.parseQueryGet(window.location) // { name: 'leha', age: '2' }
  *  });
  * </pre>
  */
-export function parseQuery(query: string): PARAMS {
-    const params = extractAllParams(query);
-    return {
-        hash: params[HASH_SEPARATOR],
-        get: params[GET_SEPARATOR],
-    }
-}
+export const parseQueryHash = (query: string): PARAMS_SET => extractQuery(query, HASH_SEPARATOR);
+export const parseQueryGet = (query: string): PARAMS_SET => extractQuery(query, GET_SEPARATOR);
 
 /**
  * Извлекает параметры всех типов
  * @param {String} query Строка с get и hash параметрами
  * @returns {Object} 
  */
-export function extractAllParams(query: string): PARAMS {
-    return QUERY_PARAMS.reduce((params, param) => {
-        if (query.indexOf(param) === -1) {
-            params[param] = Object.create(null);
-            return params;
-        }
-        const queryParams = query.substr(query.indexOf(param) + 1);
-        const end = queryParams.search(ANY_SEPARATOR);
-        params[param] = extractParams(queryParams.substring(0, (end !== -1) ? end : void 0));
-        return params;
-    }, Object.create(null));
+export function extractQuery(query: string, param: string): PARAMS_SET {
+    if (query.indexOf(param) === -1) {
+        return Object.create(null);
+    }
+    const queryParams = query.substr(query.indexOf(param) + 1);
+    const end = queryParams.search(ANY_SEPARATOR);
+    return extractParams(queryParams.substring(0, (end !== -1) ? end : void 0));
 }
 
 /**
@@ -85,7 +72,7 @@ type PARAM_TYPE = 'hash' | 'get';
 
 /**
  * Словарь параметров, ключом является имя параметра, значением - значение параметра
- * @typedef {Object} PARAMS
+ * @typedef {Object} PARAMS_SET
  * @property {String} param_name значение параметра
  */
 type PARAMS_SET = { [param_name: string]: string }

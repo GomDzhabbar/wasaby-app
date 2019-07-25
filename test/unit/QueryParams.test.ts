@@ -1,4 +1,4 @@
-import { parseQuery, extractParams, extractAllParams } from 'Application/_Env/QueryParams';
+import { parseQueryGet, parseQueryHash, extractParams, extractQuery } from 'Application/_Env/QueryParams';
 // import { assert } from 'chai';
 
 describe('Application/_Env/QueryParams', function () {
@@ -16,7 +16,7 @@ describe('Application/_Env/QueryParams', function () {
         });
     });
 
-    describe('extractAllParams', function () {
+    describe('extractQuery', function () {
         const get_params = {
             '': {},
             'g1=v1': { g1: 'v1' },
@@ -39,17 +39,17 @@ describe('Application/_Env/QueryParams', function () {
 
                 function test(query) {
                     it(`${query} GET параметры извлечены`, function () {
-                        assert.deepEqual(extractAllParams(query)[get_sep], get_params[get_param]);
+                        assert.deepEqual(extractQuery(query, get_sep), get_params[get_param]);
                     });
                     it(`${query} HASH параметры извлечены`, function () {
-                        assert.deepEqual(extractAllParams(query)[hash_sep], hash_params[hash_param]);
+                        assert.deepEqual(extractQuery(query, hash_sep), hash_params[hash_param]);
                     });
                 }
             });
         });
     });
 
-    describe('getQueryParams()', function () {
+    describe('parseQueryGet / parseQueryHash', function () {
         const queries = {
             'http://example.com/over/there?name=ferret': {
                 get: { name: 'ferret' },
@@ -69,12 +69,11 @@ describe('Application/_Env/QueryParams', function () {
             }
         };
         Object.keys(queries).forEach((query) => {
-            const params = parseQuery(query);
             it(`${query} GET параметры извлечены`, function () {
-                assert.deepEqual(params.get, queries[query].get);
+                assert.deepEqual(parseQueryGet(query), queries[query].get);
             });
             it(`${query} HASH параметры извлечены`, function () {
-                assert.deepEqual(params.hash, queries[query].hash);
+                assert.deepEqual(parseQueryHash(query), queries[query].hash);
             });
         })
     })

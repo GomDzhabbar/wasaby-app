@@ -9,20 +9,16 @@ import { ILocation } from 'Application/_Interface/ILocation';
 import { IStore, IStoreMap } from 'Application/_Interface/IStore';
 import { Config } from "Application/Config";
 import { Store } from 'Application/Request';
-import { parseQuery } from 'Application/_Env/QueryParams';
 
 export default class EnvBrowser implements IEnv {
     console: IConsole
     cookie: ICookie
     location: ILocation;
-    storages: IStoreMap
+    storages: IStoreMap;
     global = { appRequest: undefined };
 
     constructor(cfg: Config) {
-        this.location = Object.create(window.location);
-        Object.defineProperty(this.location, 'query', {
-            get: () => parseQuery(this.location.href)
-        });
+        this.location = window.location;
         this.console = new Console(window.console);
         if (cfg.get("Application/Env.LogLevel") !== undefined) {
             this.console.setLogLevel(<LogLevel>cfg.get("Application/Env.LogLevel"));

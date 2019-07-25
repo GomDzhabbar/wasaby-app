@@ -1,5 +1,4 @@
 /// <amd-module name="Application/_Interface/ILocation" />
-import { PARAMS } from 'Application/_Env/QueryParams';
 /**
  * Описание обобщенного window.location.
  * Выписаны те поля, которые есть на сервисе представления и в браузере
@@ -15,5 +14,4 @@ export interface ILocation {
     pathname: string;
     search: string;
     hash: string;
-    query: PARAMS
 }
