@@ -7,3 +7,4 @@ test/unit/*.js
 test/server/src
 _*
 *.lock
+*.log

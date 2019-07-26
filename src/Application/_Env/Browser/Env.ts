@@ -13,15 +13,15 @@ import { Store } from 'Application/Request';
 export default class EnvBrowser implements IEnv {
     console: IConsole
     cookie: ICookie
-    location: ILocation
-    storages: IStoreMap
+    location: ILocation;
+    storages: IStoreMap;
     global = { appRequest: undefined };
 
     constructor(cfg: Config) {
         this.location = window.location;
         this.console = new Console(window.console);
         if (cfg.get("Application/Env.LogLevel") !== undefined) {
-            this.console.setLogLevel(<LogLevel> cfg.get("Application/Env.LogLevel"));
+            this.console.setLogLevel(<LogLevel>cfg.get("Application/Env.LogLevel"));
         }
 
         this.cookie = new Cookie();

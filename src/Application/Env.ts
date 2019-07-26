@@ -1,5 +1,6 @@
 /// <amd-module name="Application/Env" />
 export { default as EnvBrowser } from 'Application/_Env/Browser/Env';
+import { parseQueryHash, parseQueryGet, PARAMS } from 'Application/_Env/QueryParams';
 export { default as StateReceiver } from 'Application/_Env/Browser/StateReceiver';
 export { LogLevel } from 'Application/_Env/Console';
 import { IConsole } from 'Application/_Interface/IConsole';
@@ -18,6 +19,29 @@ function isAppInit() {
         }
     }
 }
+
+/**
+ * Возвращает все GET и HASH параметры
+ * @name Application/Env#query
+ * @return {Application/_Env/QueryParams/PARAMS.typedef} Извлеченные параметры
+ * @public
+ * @author Ибрагимов А.А
+ * @example
+ * <pre>
+ *  require(['Application/Env'], function (Env) {
+ *      var getParams = Env.query.get    // { name: 'ferret', color: 'purple' }
+ *      var hashParams = Env.query.hash  // { name: 'leha', age: '2' }
+ *  });
+ * </pre>
+ */
+export const query: PARAMS = {
+    get hash() {
+        return parseQueryHash(location.href);
+    },
+    get get() {
+        return parseQueryGet(location.href);
+    }
+};
 
 export const location: ILocation = {
     get protocol() {

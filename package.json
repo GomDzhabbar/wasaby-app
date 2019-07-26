@@ -20,8 +20,8 @@
       }
    },
    "scripts": {
-      "postinstall": "tsc -p ./tsconfig.declare.json || echo Installed",
-      "build": "tsc -p ./tsconfig.json || tsc -p ./tsconfig.declare.json || saby-units --install",
+      "postinstall": "npm run declare || saby-units --install || echo Installed",
+      "build": "tsc -p ./tsconfig.json || npm run declare",
       "declare": "tsc -p ./tsconfig.declare.json",
       "pretest": "npm run test:clean > ../_.log && tsc -p ./test/tsconfig.json > ../_.log || node test/server/build.js",
       "server": "node test/server/build.js && node test/server/run.js",
