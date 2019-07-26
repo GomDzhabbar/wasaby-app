@@ -142,79 +142,24 @@ declare module "Application/_Config/Config" {
         getUID(): string;
     }
 }
-/// <amd-module name="Application/_Env/QueryParams" />
-declare module "Application/_Env/QueryParams" {
-    /**
-     * @cfg {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
-     * @name Application/_Env/QueryParams#query
-     */
-    /**
-     * Функция parseQuery получает URL-Like строку и возвращает все ивзлеченные GET и HASH параметры
-     * @param {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
-     * @return {PARAMS} Извлеченные параметры
-     * @public
-     * @author Ибрагимов А.А
-     * @example
-     * <pre>
-     *  require(['Application/Env'], function (Env) {
-     *      var params = Env.parseQuery('http://example.com/path#name=leha&age=2?name=ferret&color=purple');
-     *      params.get  // { name: 'ferret', color: 'purple' }
-     *      params.hash // { name: 'leha', age: '2' }
-     *  });
-     * </pre>
-     */
-    export function parseQuery(query: string): PARAMS;
-    /**
-     * Извлекает параметры всех типов
-     * @param {String} query Строка с get и hash параметрами
-     * @returns {Object}
-     */
-    export function extractAllParams(query: string): PARAMS;
-    /**
-     * Извлекает параметры из строки
-     * @param {String} str Строка get/hash параметров, разделенных &
-     * @returns {PARAMS_SET} Словарь параметров
-     */
-    export function extractParams(str: string): PARAMS_SET;
-    /**
-     * @typedef {Object} PARAMS
-     * @property {PARAMS_SET} get Словарь GET параметров
-     * @property {PARAMS_SET} hash Словарь HASH параметров
-     */
-    export type PARAMS = {
-        [param_type in PARAM_TYPE]: PARAMS_SET;
-    };
-    /**
-     * @typedef {String} PARAM_TYPE
-     * @variant hash HASH параметры строки
-     * @variant get GET параметры строки
-     */
-    type PARAM_TYPE = 'hash' | 'get';
-    /**
-     * Словарь параметров, ключом является имя параметра, значением - значение параметра
-     * @typedef {Object} PARAMS
-     * @property {String} param_name значение параметра
-     */
-    type PARAMS_SET = {
-        [param_name: string]: string;
-    };
-}
 /// <amd-module name="Application/_Interface/ILocation" />
 declare module "Application/_Interface/ILocation" {
-    import { PARAMS } from "Application/_Env/QueryParams";
-    export type LOCATION_KEY = 'protocol' | 'host' | 'hostname' | 'port' | 'href' | 'pathname' | 'search' | 'hash' | 'query';
     /**
      * Описание обобщенного window.location.
      * Выписаны те поля, которые есть на сервисе представления и в браузере
      * @interface
      * @name Core/Request/ILocation
      */
-    export type ILocation = {
-        [key in LOCATION_KEY]: string;
-    } & {
-        query: PARAMS;
-    };
-    export const LOCATION_KEYS: LOCATION_KEY[];
+    export interface ILocation {
+        protocol: string;
+        host: string;
+        hostname: string;
+        port: string;
+        href: string;
+        pathname: string;
+        search: string;
+        hash: string;
+    }
 }
 /// <amd-module name="Application/_Interface/IStateReceiver" />
 declare module "Application/_Interface/IStateReceiver" {
@@ -493,6 +438,71 @@ declare module "Application/_Env/Browser/Env" {
         static create(cfg: Config): EnvBrowser;
     }
 }
+/// <amd-module name="Application/_Env/QueryParams" />
+declare module "Application/_Env/QueryParams" {
+    /**
+     * @cfg {String} query URL-Like строка, содержащая GET- и/или HASH- параметры
+     * @name Application/_Env/QueryParams#query
+     */
+    /**
+     * Функция parseQueryHash получает URL-Like строку и возвращает все ивзлеченные HASH-параметры
+     * @param {String} query URL-Like строка, содержащая HASH-параметры
+     * @return {PARAMS_SET} Извлеченные параметры
+     * @example
+     * <pre>
+     *  require(['Application/_Env/QueryParams'], function (QueryParams) {
+     *      var getParams = QueryParams.parseQueryHash(window.location) // { name: 'ferret', color: 'purple' }
+     *  });
+     * </pre>
+     */
+    export const parseQueryHash: (query: string) => PARAMS_SET;
+    /**
+     * Функция parseQueryHash получает URL-Like строку и возвращает все ивзлеченные GET-параметры
+     * @param {String} query URL-Like строка, содержащая GET-параметры
+     * @return {PARAMS_SET} Извлеченные параметры
+     * @example
+     * <pre>
+     *  require(['Application/_Env/QueryParams'], function (QueryParams) {
+     *      var hashParams = QueryParams.parseQueryGet(window.location) // { name: 'leha', age: '2' }
+     *  });
+     * </pre>
+     */
+    export const parseQueryGet: (query: string) => PARAMS_SET;
+    /**
+     * Извлекает параметры всех типов
+     * @param {String} query Строка с get и hash параметрами
+     * @returns {Object}
+     */
+    export function extractQuery(query: string, param: string): PARAMS_SET;
+    /**
+     * Извлекает параметры из строки
+     * @param {String} str Строка get/hash параметров, разделенных &
+     * @returns {PARAMS_SET} Словарь параметров
+     */
+    export function extractParams(str: string): PARAMS_SET;
+    /**
+     * @typedef {Object} PARAMS
+     * @property {PARAMS_SET} get Словарь GET параметров
+     * @property {PARAMS_SET} hash Словарь HASH параметров
+     */
+    export type PARAMS = {
+        [param_type in PARAM_TYPE]: PARAMS_SET;
+    };
+    /**
+     * @typedef {String} PARAM_TYPE
+     * @variant hash HASH параметры строки
+     * @variant get GET параметры строки
+     */
+    type PARAM_TYPE = 'hash' | 'get';
+    /**
+     * Словарь параметров, ключом является имя параметра, значением - значение параметра
+     * @typedef {Object} PARAMS_SET
+     * @property {String} param_name значение параметра
+     */
+    type PARAMS_SET = {
+        [param_name: string]: string;
+    };
+}
 /// <amd-module name="Application/_Interface/IConfig" />
 declare module "Application/_Interface/IConfig" {
     import { Native } from "Application/Type";
@@ -566,8 +576,7 @@ declare module "Application/_Env/Browser/StateReceiver" {
 /// <amd-module name="Application/Env" />
 declare module "Application/Env" {
     export { default as EnvBrowser } from "Application/_Env/Browser/Env";
-    import { parseQuery } from "Application/_Env/QueryParams";
-    export { parseQuery };
+    import { PARAMS } from "Application/_Env/QueryParams";
     export { default as StateReceiver } from "Application/_Env/Browser/StateReceiver";
     export { LogLevel } from "Application/_Env/Console";
     import { IConsole } from "Application/_Interface/IConsole";
@@ -575,6 +584,21 @@ declare module "Application/Env" {
     import { ILocation } from "Application/_Interface/ILocation";
     import { IStateReceiver } from "Application/_Interface/IStateReceiver";
     import { IStore } from "Application/_Interface/IStore";
+    /**
+     * Возвращает все GET и HASH параметры
+     * @name Application/Env#query
+     * @return {Application/_Env/QueryParams/PARAMS.typedef} Извлеченные параметры
+     * @public
+     * @author Ибрагимов А.А
+     * @example
+     * <pre>
+     *  require(['Application/Env'], function (Env) {
+     *      var getParams = Env.query.get    // { name: 'ferret', color: 'purple' }
+     *      var hashParams = Env.query.hash  // { name: 'leha', age: '2' }
+     *  });
+     * </pre>
+     */
+    export const query: PARAMS;
     export const location: ILocation;
     export const cookie: ICookie;
     export const logger: IConsole;
