@@ -1,0 +1,9 @@
+{
+  "include": [
+    "Application/Initializer",
+    "Application/Env",
+    "Application/Request",
+    "Application/Config"
+  ],
+  "extendsTo": "vdom-superbundle.package.js"
+}
