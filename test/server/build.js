@@ -4,7 +4,7 @@ const fs = require('fs');
 // Создаем папку с модулями из исходников
 const root = path.resolve(__dirname, '../../');
 const srcFolder = path.join(root, 'src');
-const srcUnitFolder = path.resolve(root, 'test/unit');
+const srcUnitFolder = path.resolve(root, 'test/AppUnit');
 const standSrcFolder = path.join(__dirname, 'src');
 const standUnitFolder = path.resolve(standSrcFolder, 'tests');
 
